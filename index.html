@@ -167,11 +167,8 @@
       --text: #37352f;
       --text-muted: #787774;
       --bg: #ffffff;
-      --bg-warm: #faf9f7;
       --border: #e8e7e4;
-      --accent-pink: #e8d5d5;
-      --accent-green: #d5e5d8;
-      --accent-yellow: #f5ecd5;
+      --card-bg: #fdf6e3;
     }
 
     body {
@@ -181,10 +178,13 @@
       background: var(--bg);
       overflow-x: hidden;
       position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -196,11 +196,9 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
       z-index: 100;
     }
 
@@ -219,34 +217,28 @@
     }
 
     .logo-icon {
-      font-size: 28px;
+      font-size: 24px;
       line-height: 1;
     }
 
     .logo-text {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: -0.02em;
       text-transform: uppercase;
-      display: flex;
-      align-items: baseline;
-      position: relative;
-      top: 2px;
     }
 
     .logo-text .domain {
       font-weight: 400;
       font-size: 10px;
       color: var(--text-muted);
-      position: relative;
-      top: 0;
       margin-left: 1px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 36px;
+      gap: 32px;
     }
 
     .nav-links a {
@@ -272,13 +264,122 @@
       height: 18px;
     }
 
+    /* Decorative blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .blob-green-top {
+      width: 280px;
+      height: 280px;
+      background: rgba(167, 211, 178, 0.5);
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+    }
+
+    .blob-blue {
+      width: 100px;
+      height: 100px;
+      background: rgba(147, 197, 219, 0.6);
+      top: 180px;
+      left: calc(50% - 180px);
+      border-radius: 50%;
+    }
+
+    .blob-pink-top {
+      width: 70px;
+      height: 70px;
+      background: rgba(241, 182, 182, 0.6);
+      top: 80px;
+      right: calc(50% - 320px);
+      border-radius: 50%;
+    }
+
+    .blob-green-left {
+      width: 320px;
+      height: 320px;
+      background: rgba(183, 223, 192, 0.4);
+      top: 150px;
+      left: -120px;
+      border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+    }
+
+    .blob-pink-right {
+      width: 280px;
+      height: 280px;
+      background: rgba(241, 192, 192, 0.35);
+      top: 120px;
+      right: -100px;
+      border-radius: 50% 50% 40% 60% / 40% 50% 50% 60%;
+    }
+
+    /* Hero */
+    main {
+      flex: 1;
+      position: relative;
+    }
+
+    .hero {
+      padding: 140px 0 60px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-icon {
+      font-size: 100px;
+      margin-bottom: 24px;
+      display: block;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero .subtitle {
+      font-size: 18px;
+      color: var(--text);
+      max-width: 550px;
+      margin: 0 auto 16px;
+    }
+
+    .hero .description {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    .hero .description strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 60px;
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      height: 40px;
-      padding: 0 24px;
+      height: 44px;
+      padding: 0 28px;
       border-radius: 6px;
       font-size: 15px;
       font-weight: 600;
@@ -301,317 +402,63 @@
     .btn-outline {
       background: transparent;
       color: var(--primary);
-      border: 1px solid var(--primary);
+      border: 1.5px solid var(--primary);
     }
 
     .btn-outline:hover {
       background: rgba(35, 131, 226, 0.05);
     }
 
-    /* Decorative blobs */
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(0px);
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    .blob-1 {
-      width: 400px;
-      height: 400px;
-      background: var(--accent-pink);
-      top: 120px;
-      left: -150px;
-      opacity: 0.35;
-      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    }
-
-    .blob-2 {
-      width: 300px;
-      height: 300px;
-      background: var(--accent-green);
-      top: 200px;
-      right: -100px;
-      opacity: 0.4;
-      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-    }
-
-    /* Hero */
-    .hero {
-      padding: 160px 0 120px;
-      text-align: center;
-      position: relative;
-    }
-
-    .hero-icon {
-      font-size: 80px;
-      margin-bottom: 28px;
-      display: block;
-    }
-
-    .hero h1 {
-      font-size: 52px;
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 24px;
-      letter-spacing: -0.03em;
-    }
-
-    .hero h1 .emoji {
-      display: inline-block;
-    }
-
-    .hero .subtitle {
-      font-size: 19px;
-      color: var(--text);
-      max-width: 650px;
-      margin: 0 auto 20px;
-      line-height: 1.7;
-    }
-
-    .hero .description {
-      font-size: 16px;
-      color: var(--text-muted);
-      max-width: 580px;
-      margin: 0 auto 44px;
-    }
-
-    .hero .description strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-    }
-
-    /* Feature Section */
-    .feature-section {
-      padding: 100px 0;
-      position: relative;
-    }
-
-    .feature-row {
+    /* Feature Cards */
+    .features {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-      margin-bottom: 100px;
+      gap: 24px;
+      max-width: 950px;
+      margin: 0 auto;
+      padding-bottom: 80px;
     }
 
-    .feature-row:last-child {
-      margin-bottom: 0;
-    }
-
-    .feature-row.reverse .feature-content {
-      order: 2;
-    }
-
-    .feature-row.reverse .feature-visual {
-      order: 1;
-    }
-
-    .feature-content h2 {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      letter-spacing: -0.02em;
-    }
-
-    .feature-content > p {
-      font-size: 17px;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-      line-height: 1.7;
-    }
-
-    .feature-list {
-      list-style: none;
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 24px;
     }
 
     .feature-item {
-      padding: 16px 20px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      transition: background 0.2s;
-    }
-
-    .feature-item:hover {
-      background: var(--bg-warm);
-    }
-
-    .feature-item.highlighted {
-      background: #fff8e5;
-      border-left: 3px solid #f5c542;
-    }
-
-    .feature-item-header {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 4px;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .feature-item:last-child {
+      margin-bottom: 0;
     }
 
     .feature-item-icon {
-      font-size: 18px;
+      font-size: 22px;
+      flex-shrink: 0;
+      line-height: 1.4;
     }
 
-    .feature-item-title {
+    .feature-item-content h3 {
       font-size: 15px;
       font-weight: 600;
-      color: var(--primary);
-    }
-
-    .feature-item p {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-left: 30px;
-    }
-
-    .feature-visual {
-      background: var(--bg-warm);
-      border-radius: 16px;
-      padding: 32px;
-      min-height: 360px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .feature-visual-content {
-      text-align: center;
-    }
-
-    .feature-visual-icon {
-      font-size: 64px;
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    .feature-visual-text {
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    /* Simple Features Grid */
-    .simple-features {
-      padding: 80px 0;
-      background: var(--bg-warm);
-    }
-
-    .simple-features h2 {
-      text-align: center;
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 48px;
-      letter-spacing: -0.02em;
-    }
-
-    .simple-features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 48px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .simple-feature {
-      text-align: center;
-    }
-
-    .simple-feature-icon {
-      width: 64px;
-      height: 64px;
-      background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      font-size: 28px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    }
-
-    .simple-feature h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
       color: var(--text);
+      margin-bottom: 4px;
     }
 
-    .simple-feature p {
+    .feature-item-content p {
       font-size: 14px;
       color: var(--text-muted);
       line-height: 1.5;
     }
 
-    /* FAQ Section */
-    .faq-section {
-      padding: 100px 0;
-    }
-
-    .faq-section h2 {
-      text-align: center;
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 48px;
-      letter-spacing: -0.02em;
-    }
-
-    .faq-list {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-      padding: 24px 0;
-    }
-
-    .faq-item:first-child {
-      border-top: 1px solid var(--border);
-    }
-
-    .faq-item h3 {
-      font-size: 17px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--text);
-    }
-
-    .faq-item p {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    /* CTA */
-    .cta {
-      padding: 120px 0;
-      text-align: center;
-      position: relative;
-    }
-
-    .cta h2 {
-      font-size: 40px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .cta p {
-      font-size: 17px;
-      color: var(--text-muted);
-      margin-bottom: 36px;
-    }
-
     /* Footer */
     footer {
-      padding: 32px 0;
+      padding: 24px 0;
       border-top: 1px solid var(--border);
+      margin-top: auto;
     }
 
     footer .container {
@@ -630,7 +477,7 @@
 
     .footer-links {
       display: flex;
-      gap: 28px;
+      gap: 24px;
     }
 
     .footer-links a {
@@ -645,36 +492,44 @@
     }
 
     /* Responsive */
-    @media (max-width: 900px) {
+    @media (max-width: 768px) {
+      .hero {
+        padding: 120px 0 40px;
+      }
+
       .hero h1 {
-        font-size: 36px;
+        font-size: 32px;
       }
 
       .hero .subtitle {
-        font-size: 17px;
+        font-size: 16px;
       }
 
-      .feature-row {
+      .hero .description {
+        font-size: 14px;
+      }
+
+      .hero-icon {
+        font-size: 72px;
+      }
+
+      .features {
         grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      .feature-row.reverse .feature-content,
-      .feature-row.reverse .feature-visual {
-        order: unset;
-      }
-
-      .simple-features-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links a:not(.nav-login) {
-        display: none;
+        padding: 0 16px 60px;
       }
 
       .hero-buttons {
         flex-direction: column;
         align-items: center;
+        gap: 10px;
+      }
+
+      .btn {
+        width: 200px;
+      }
+
+      .nav-links a:not(.nav-login) {
+        display: none;
       }
 
       footer .container {
@@ -684,27 +539,35 @@
       }
 
       .blob {
-        opacity: 0.3;
+        opacity: 0.4;
+      }
+
+      .blob-green-left,
+      .blob-pink-right {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
   <!-- Decorative blobs -->
-  <div class="blob blob-1" aria-hidden="true"></div>
-  <div class="blob blob-2" aria-hidden="true"></div>
+  <div class="blob blob-green-top" aria-hidden="true"></div>
+  <div class="blob blob-blue" aria-hidden="true"></div>
+  <div class="blob blob-pink-top" aria-hidden="true"></div>
+  <div class="blob blob-green-left" aria-hidden="true"></div>
+  <div class="blob blob-pink-right" aria-hidden="true"></div>
 
-  <header role="banner">
+  <header>
     <div class="container">
-      <a href="/" class="logo" aria-label="LAYERDOLLS - Bookmark Manager Home">
-        <span class="logo-icon" aria-hidden="true">🪆</span>
-        <span class="logo-text">LAYERDOLLS<span class="domain">.com</span></span>
+      <a href="/" class="logo">
+        <span class="logo-icon">🪆</span>
+        <span class="logo-text">LAYERDOLLS<span class="domain">.COM</span></span>
       </a>
-      <nav class="nav-links" role="navigation" aria-label="Main navigation">
+      <nav class="nav-links">
         <a href="#features">Features</a>
         <a href="#search">Search</a>
-        <a href="javascript:void(0)" onclick="goToApp()" class="nav-login" aria-label="Login to LAYERDOLLS">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <a href="javascript:void(0)" onclick="goToApp()" class="nav-login">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
           </svg>
@@ -714,11 +577,11 @@
     </div>
   </header>
 
-  <main role="main">
-    <section class="hero" aria-labelledby="hero-heading">
+  <main>
+    <section class="hero">
       <div class="container">
-        <span class="hero-icon" aria-hidden="true">🪆</span>
-        <h1 id="hero-heading">Your Internet, Organized. For free.</h1>
+        <span class="hero-icon">🪆</span>
+        <h1>Your Internet, Organized. For free.</h1>
         <p class="subtitle">
           Save, sort, and rediscover your bookmarks effortlessly in one place.
         </p>
@@ -726,128 +589,70 @@
           Stop juggling tabs and forgotten bookmarks. <strong>Layerdolls</strong> helps you capture, organize, and search links in one clean space, with full-text search, collections, and AI-powered organization that keeps your digital life tidy.
         </p>
         <div class="hero-buttons">
-          <a href="javascript:void(0)" onclick="goToApp()" class="btn btn-primary" aria-label="Start using LAYERDOLLS for free">Get started free</a>
+          <a href="javascript:void(0)" onclick="goToApp()" class="btn btn-primary">Get started free</a>
           <a href="#features" class="btn btn-outline">Learn more</a>
         </div>
-      </div>
-    </section>
 
-    <section class="feature-section" id="features" aria-labelledby="features-heading">
-      <div class="container">
-        <article class="feature-row">
-          <div class="feature-content">
-            <h2 id="features-heading">Organize bookmarks with nested collections</h2>
-            <p>Untangle your bookmarks mess with powerful organization. Create folders within folders and keep everything tidy.</p>
-            <ul class="feature-list">
-              <li class="feature-item highlighted">
-                <div class="feature-item-header">
-                  <span class="feature-item-icon" aria-hidden="true">📁</span>
-                  <span class="feature-item-title">Nested bookmark folders</span>
-                </div>
+        <div class="features" id="features">
+          <div class="feature-card">
+            <div class="feature-item">
+              <span class="feature-item-icon">📚</span>
+              <div class="feature-item-content">
+                <h3>Nested bookmark folders</h3>
                 <p>Group related bookmarks with unlimited nesting. Organize the way you think with hierarchical collections.</p>
-              </li>
-              <li class="feature-item">
-                <div class="feature-item-header">
-                  <span class="feature-item-icon" aria-hidden="true">❤️</span>
-                  <span class="feature-item-title">Favorite bookmarks</span>
-                </div>
-                <p>Mark important bookmarks as favorites for quick access anytime.</p>
-              </li>
-              <li class="feature-item">
-                <div class="feature-item-header">
-                  <span class="feature-item-icon" aria-hidden="true">😊</span>
-                  <span class="feature-item-title">Custom emoji icons</span>
-                </div>
-                <p>Personalize your bookmark collections with emoji icons for visual organization.</p>
-              </li>
-            </ul>
-          </div>
-          <div class="feature-visual" aria-hidden="true">
-            <div class="feature-visual-content">
-              <span class="feature-visual-icon">📚</span>
-              <p class="feature-visual-text">Your bookmarks, beautifully organized</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <span class="feature-item-icon">❤️</span>
+              <div class="feature-item-content">
+                <h3>Favorite bookmarks</h3>
+                <p>Mark important bookmarks as favorites for quick access.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <span class="feature-item-icon">😊</span>
+              <div class="feature-item-content">
+                <h3>Custom emoji icons</h3>
+                <p>Personalize your bookmark collections with emoji icons anytime.</p>
+              </div>
             </div>
           </div>
-        </article>
 
-        <article class="feature-row reverse" id="search">
-          <div class="feature-content">
-            <h2>Powerful full-text bookmark search</h2>
-            <p>Find any saved bookmark instantly. Layerdolls searches through titles, URLs, and the actual content of your links.</p>
-            <ul class="feature-list">
-              <li class="feature-item highlighted">
-                <div class="feature-item-header">
-                  <span class="feature-item-icon" aria-hidden="true">🔍</span>
-                  <span class="feature-item-title">Full-text search</span>
-                </div>
+          <div class="feature-card" id="search">
+            <div class="feature-item">
+              <span class="feature-item-icon">🔍</span>
+              <div class="feature-item-content">
+                <h3>Full-text search</h3>
                 <p>Search across bookmark titles, URLs, and full page content simultaneously.</p>
-              </li>
-              <li class="feature-item">
-                <div class="feature-item-header">
-                  <span class="feature-item-icon" aria-hidden="true">🤖</span>
-                  <span class="feature-item-title">AI-powered search</span>
-                </div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <span class="feature-item-icon">🤖</span>
+              <div class="feature-item-content">
+                <h3>AI-powered search</h3>
                 <p>Search understands what you're looking for, not just keywords. Find any bookmark by its body content.</p>
-              </li>
-              <li class="feature-item">
-                <div class="feature-item-header">
-                  <span class="feature-item-icon" aria-hidden="true">⚡</span>
-                  <span class="feature-item-title">Instant results</span>
-                </div>
+              </div>
+            </div>
+            <div class="feature-item">
+              <span class="feature-item-icon">⚡</span>
+              <div class="feature-item-content">
+                <h3>Instant results</h3>
                 <p>Results appear as you type. Lightning-fast search with no waiting.</p>
-              </li>
-            </ul>
-          </div>
-          <div class="feature-visual" aria-hidden="true">
-            <div class="feature-visual-content">
-              <span class="feature-visual-icon">🔎</span>
-              <p class="feature-visual-text">Search everything, find anything</p>
+              </div>
             </div>
           </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="simple-features" aria-labelledby="more-features-heading">
-      <div class="container">
-        <h2 id="more-features-heading">More bookmark manager features</h2>
-        <div class="simple-features-grid">
-          <article class="simple-feature">
-            <div class="simple-feature-icon" aria-hidden="true">✨</div>
-            <h3>Automatic metadata</h3>
-            <p>Automatically fetches titles, descriptions, and images</p>
-          </article>
-          <article class="simple-feature">
-            <div class="simple-feature-icon" aria-hidden="true">🔐</div>
-            <h3>Passwordless login</h3>
-            <p>Sign in securely with just your email. No passwords to remember.</p>
-          </article>
-          <article class="simple-feature">
-            <div class="simple-feature-icon" aria-hidden="true">🎨</div>
-            <h3>Clean design</h3>
-            <p>Minimal, distraction-free interface. Focus on your bookmarks.</p>
-          </article>
         </div>
-      </div>
-    </section>
-
-
-    <section class="cta" aria-labelledby="cta-heading">
-      <div class="container">
-        <h2 id="cta-heading">Ready to organize your bookmarks?</h2>
-        <p>Start saving and organizing your bookmarks today. It's completely free.</p>
-        <a href="javascript:void(0)" onclick="goToApp()" class="btn btn-primary" aria-label="Get started with LAYERDOLLS for free">Get started free</a>
       </div>
     </section>
   </main>
 
-  <footer role="contentinfo">
+  <footer>
     <div class="container">
       <div class="footer-left">
-        <span aria-hidden="true">🪆</span>
+        <span>🪆</span>
         <span>LAYERDOLLS &copy; 2025 - Free Bookmark Manager</span>
       </div>
-      <nav class="footer-links" aria-label="Footer navigation">
+      <nav class="footer-links">
         <a href="mailto:layerdolls@gmail.com">Support</a>
         <a href="javascript:void(0)" onclick="goToApp()">Login</a>
       </nav>
@@ -855,7 +660,6 @@
   </footer>
 
   <script>
-    // App URL configuration - auto-detect environment
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
     const APP_URL = isLocal ? 'http://localhost:5173' : 'https://app.layerdolls.com';
 
