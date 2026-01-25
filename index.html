@@ -512,9 +512,9 @@
 
     .simple-features-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 48px;
-      max-width: 800px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
@@ -665,7 +665,7 @@
       }
 
       .simple-features-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .nav-links a:not(.nav-login) {
@@ -818,6 +818,11 @@
             <p>Automatically fetches titles, descriptions, and images</p>
           </article>
           <article class="simple-feature">
+            <div class="simple-feature-icon" aria-hidden="true">🧩</div>
+            <h3>Chrome Extension</h3>
+            <p>Save bookmarks with one click directly from your browser.</p>
+          </article>
+          <article class="simple-feature">
             <div class="simple-feature-icon" aria-hidden="true">🔐</div>
             <h3>Passwordless login</h3>
             <p>Sign in securely with just your email. No passwords to remember.</p>
@@ -850,6 +855,7 @@
       <nav class="footer-links" aria-label="Footer navigation">
         <a href="/privacy.html">Privacy</a>
         <a href="mailto:layerdolls@gmail.com">Support</a>
+        <a href="https://chrome.google.com/webstore/detail/layerdolls/TODO_EXTENSION_ID" target="_blank" rel="noopener">Extension</a>
         <a href="javascript:void(0)" onclick="goToApp()">Login</a>
       </nav>
     </div>
