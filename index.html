@@ -163,15 +163,17 @@
 
     :root {
       --primary: #2383e2;
-      --primary-hover: #1a6fc4;
-      --text: #37352f;
-      --text-muted: #787774;
+      --primary-hover: #1a6fc2;
+      --primary-light: #5ba3eb;
+      --text: #1e1e2e;
+      --text-muted: #64748b;
       --bg: #ffffff;
-      --bg-warm: #faf9f7;
-      --border: #e8e7e4;
-      --accent-pink: #e8d5d5;
-      --accent-green: #d5e5d8;
-      --accent-yellow: #f5ecd5;
+      --bg-warm: #f8fafc;
+      --border: #e2e8f0;
+      --accent-coral: #ffe4d6;
+      --accent-peach: #fff0e6;
+      --accent-blue: #e8f4fd;
+      --accent-mint: #e6f7f2;
     }
 
     body {
@@ -187,6 +189,7 @@
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 24px;
+      overflow: visible;
     }
 
     /* Header */
@@ -196,12 +199,15 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      background: transparent;
       z-index: 100;
+      transition: box-shadow 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease;
+    }
+
+    header.scrolled {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     }
 
     header .container {
@@ -312,29 +318,37 @@
     .blob {
       position: absolute;
       border-radius: 50%;
-      filter: blur(0px);
+      filter: blur(60px);
       z-index: -1;
       pointer-events: none;
+      animation: blob-float 8s ease-in-out infinite;
+    }
+
+    @keyframes blob-float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
     }
 
     .blob-1 {
-      width: 400px;
-      height: 400px;
-      background: var(--accent-pink);
-      top: 120px;
-      left: -150px;
-      opacity: 0.35;
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, #fda4af 0%, #fcd9bd 100%);
+      top: 60px;
+      left: -250px;
+      opacity: 0.4;
       border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
     }
 
     .blob-2 {
-      width: 300px;
-      height: 300px;
-      background: var(--accent-green);
-      top: 200px;
-      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: linear-gradient(135deg, #fcd9bd 0%, #fef3c7 100%);
+      top: 120px;
+      right: -200px;
       opacity: 0.4;
       border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+      animation-delay: -4s;
     }
 
     /* Hero */
@@ -348,14 +362,25 @@
       font-size: 80px;
       margin-bottom: 28px;
       display: block;
+      animation: bounce-soft 3s ease-in-out infinite;
+    }
+
+    @keyframes bounce-soft {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .hero h1 {
-      font-size: 52px;
-      font-weight: 700;
-      line-height: 1.15;
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.1;
       margin-bottom: 24px;
       letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .hero h1 .highlight {
+      color: var(--primary);
     }
 
     .hero h1 .emoji {
@@ -363,22 +388,24 @@
     }
 
     .hero .subtitle {
-      font-size: 19px;
+      font-size: 20px;
       color: var(--text);
       max-width: 650px;
       margin: 0 auto 20px;
       line-height: 1.7;
+      font-weight: 500;
     }
 
     .hero .description {
-      font-size: 16px;
+      font-size: 17px;
       color: var(--text-muted);
-      max-width: 580px;
-      margin: 0 auto 44px;
+      max-width: 600px;
+      margin: 0 auto 48px;
+      line-height: 1.8;
     }
 
     .hero .description strong {
-      color: var(--text);
+      color: var(--primary);
       font-weight: 600;
     }
 
@@ -392,14 +419,16 @@
     .feature-section {
       padding: 100px 0;
       position: relative;
+      overflow: visible;
     }
 
     .feature-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 80px;
+      gap: 60px;
       align-items: center;
-      margin-bottom: 100px;
+      margin-bottom: 80px;
+      position: relative;
     }
 
     .feature-row:last-child {
@@ -419,6 +448,7 @@
       font-weight: 700;
       margin-bottom: 20px;
       letter-spacing: -0.02em;
+      color: var(--text);
     }
 
     .feature-content > p {
@@ -433,19 +463,24 @@
     }
 
     .feature-item {
-      padding: 16px 20px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      transition: background 0.2s;
+      padding: 18px 22px;
+      border-radius: 16px;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
     }
 
     .feature-item:hover {
-      background: var(--bg-warm);
+      background: white;
+      border-color: var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      transform: translateX(4px);
     }
 
     .feature-item.highlighted {
-      background: #fff8e5;
-      border-left: 3px solid #f5c542;
+      background: var(--accent-blue);
+      border-left: 3px solid var(--primary);
+      border-radius: 4px 16px 16px 4px;
     }
 
     .feature-item-header {
@@ -472,80 +507,134 @@
     }
 
     .feature-visual {
-      background: var(--bg-warm);
-      border-radius: 16px;
-      padding: 32px;
+      position: relative;
       min-height: 360px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
+    .feature-visual::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: -60px;
+      right: -60px;
+      bottom: -60px;
+      background: #fde4d2;
+      border-radius: 50% 40% 45% 55% / 55% 45% 50% 45%;
+      filter: blur(80px);
+      opacity: 0.45;
+      z-index: -1;
+    }
+
+    .feature-row.reverse .feature-visual::before {
+      background: #f9cdd3;
+    }
+
     .feature-visual-content {
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
 
     .feature-visual-icon {
-      font-size: 64px;
-      margin-bottom: 16px;
+      font-size: 80px;
+      margin-bottom: 20px;
       display: block;
     }
 
     .feature-visual-text {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--text-muted);
+      font-weight: 500;
     }
 
     /* Simple Features Grid */
     .simple-features {
-      padding: 80px 0;
-      background: var(--bg-warm);
+      padding: 100px 0;
     }
 
     .simple-features h2 {
       text-align: center;
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 48px;
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 60px;
       letter-spacing: -0.02em;
     }
 
     .simple-features-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 40px;
-      max-width: 900px;
+      gap: 32px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
     .simple-feature {
       text-align: center;
+      padding: 32px 24px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .simple-feature:hover {
+      background: white;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      transform: translateY(-4px);
     }
 
     .simple-feature-icon {
       width: 64px;
       height: 64px;
-      background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
-      border-radius: 50%;
+      background: var(--accent-coral);
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 20px;
       font-size: 28px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .simple-feature:nth-child(2) .simple-feature-icon {
+      background: var(--accent-blue);
+    }
+
+    .simple-feature:nth-child(3) .simple-feature-icon {
+      background: var(--accent-mint);
+    }
+
+    .simple-feature:nth-child(4) .simple-feature-icon {
+      background: var(--accent-peach);
+    }
+
+    .simple-feature:nth-child(5) .simple-feature-icon {
+      background: #e8f4fd;
+    }
+
+    .simple-feature:nth-child(6) .simple-feature-icon {
+      background: #fef3c7;
+    }
+
+    .simple-feature:nth-child(7) .simple-feature-icon {
+      background: #fce7f3;
+    }
+
+    .simple-feature:nth-child(8) .simple-feature-icon {
+      background: #d1fae5;
     }
 
     .simple-feature h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
       color: var(--text);
     }
 
     .simple-feature p {
       font-size: 14px;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     /* FAQ Section */
@@ -590,28 +679,61 @@
 
     /* CTA */
     .cta {
-      padding: 120px 0;
+      padding: 100px 0;
       text-align: center;
       position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      background: #f9cdd3;
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+      filter: blur(100px);
+      opacity: 0.5;
+      top: -250px;
+      left: -200px;
+      z-index: 0;
+    }
+
+    .cta::after {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: #fde4d2;
+      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+      filter: blur(100px);
+      opacity: 0.6;
+      bottom: -200px;
+      right: -150px;
+      z-index: 0;
+    }
+
+    .cta .container {
+      position: relative;
+      z-index: 1;
     }
 
     .cta h2 {
-      font-size: 40px;
-      font-weight: 700;
+      font-size: 44px;
+      font-weight: 800;
       margin-bottom: 16px;
       letter-spacing: -0.02em;
     }
 
     .cta p {
-      font-size: 17px;
+      font-size: 18px;
       color: var(--text-muted);
-      margin-bottom: 36px;
+      margin-bottom: 40px;
     }
 
     /* Footer */
     footer {
       padding: 32px 0;
-      border-top: 1px solid var(--border);
     }
 
     footer .container {
@@ -718,12 +840,12 @@
     <section class="hero" aria-labelledby="hero-heading">
       <div class="container">
         <span class="hero-icon" aria-hidden="true">🪆</span>
-        <h1 id="hero-heading">Your Internet, Organized. For free.</h1>
+        <h1 id="hero-heading">Your Internet, Organized. <span class="highlight">For free</span>.</h1>
         <p class="subtitle">
           Save, sort, and rediscover your bookmarks effortlessly in one place.
         </p>
         <p class="description">
-          Stop juggling tabs and forgotten bookmarks. <strong>Layerdolls</strong> helps you capture, organize, and search links in one clean space, with full-text search, collections, and AI-powered organization that keeps your digital life tidy.
+          Stop juggling tabs and forgotten bookmarks. <strong>Layerdolls</strong> helps you capture, organize, and search links in one place with full-text search, collections, and AI-powered organization for a tidy digital life.
         </p>
         <div class="hero-buttons">
           <a href="javascript:void(0)" onclick="goToApp()" class="btn btn-primary" aria-label="Start using LAYERDOLLS for free">Get started free</a>
@@ -810,27 +932,47 @@
 
     <section class="simple-features" aria-labelledby="more-features-heading">
       <div class="container">
-        <h2 id="more-features-heading">More bookmark manager features</h2>
+        <h2 id="more-features-heading">And so much more</h2>
         <div class="simple-features-grid">
           <article class="simple-feature">
             <div class="simple-feature-icon" aria-hidden="true">✨</div>
             <h3>Automatic metadata</h3>
-            <p>Automatically fetches titles, descriptions, and images</p>
+            <p>Fetches titles, descriptions, and images automatically</p>
           </article>
           <article class="simple-feature">
             <div class="simple-feature-icon" aria-hidden="true">🧩</div>
             <h3>Chrome Extension</h3>
-            <p>Save bookmarks with one click directly from your browser.</p>
+            <p>Save bookmarks with one click from your browser</p>
+          </article>
+          <article class="simple-feature">
+            <div class="simple-feature-icon" aria-hidden="true">📄</div>
+            <h3>Content extraction</h3>
+            <p>Save full page content and images for later reading</p>
+          </article>
+          <article class="simple-feature">
+            <div class="simple-feature-icon" aria-hidden="true">🌓</div>
+            <h3>Dark & Light themes</h3>
+            <p>Switch between themes to match your preference</p>
+          </article>
+          <article class="simple-feature">
+            <div class="simple-feature-icon" aria-hidden="true">📥</div>
+            <h3>Import & Export</h3>
+            <p>Easily migrate your bookmarks from any browser</p>
           </article>
           <article class="simple-feature">
             <div class="simple-feature-icon" aria-hidden="true">🔐</div>
             <h3>Passwordless login</h3>
-            <p>Sign in securely with just your email. No passwords to remember.</p>
+            <p>Sign in securely with just your email</p>
+          </article>
+          <article class="simple-feature">
+            <div class="simple-feature-icon" aria-hidden="true">🖼️</div>
+            <h3>Visual previews</h3>
+            <p>See thumbnails and screenshots of your bookmarks</p>
           </article>
           <article class="simple-feature">
             <div class="simple-feature-icon" aria-hidden="true">🎨</div>
             <h3>Clean design</h3>
-            <p>Minimal, distraction-free interface. Focus on your bookmarks.</p>
+            <p>Minimal, distraction-free interface</p>
           </article>
         </div>
       </div>
@@ -869,6 +1011,16 @@
     function goToApp() {
       window.location.href = APP_URL;
     }
+
+    // Header scroll effect
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 55) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
   </script>
 </body>
 </html>
