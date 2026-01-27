@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Small Promo Tile - 440x280</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .dimension-label {
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .frame {
+      border: 3px solid #fff;
+    }
+
+    .capture-area {
+      width: 440px;
+      height: 280px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      padding: 24px;
+    }
+
+    /* Decorative elements */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.4;
+    }
+
+    .blob-1 {
+      width: 150px;
+      height: 150px;
+      background: #2383e2;
+      top: -50px;
+      left: -50px;
+    }
+
+    .blob-2 {
+      width: 100px;
+      height: 100px;
+      background: #dcc28f;
+      bottom: -30px;
+      right: -30px;
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      z-index: 1;
+    }
+
+    .text-side {
+      flex: 1;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .logo-icon {
+      font-size: 24px;
+    }
+
+    .logo-text {
+      font-size: 14px;
+      font-weight: 800;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+    }
+
+    .headline {
+      font-size: 22px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      letter-spacing: -1px;
+    }
+
+    .headline span {
+      background: linear-gradient(90deg, #dcc28f, #f5d98e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subheadline {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.5;
+    }
+
+    /* Mini app preview */
+    .mini-app {
+      width: 120px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      transform: perspective(500px) rotateY(-5deg);
+    }
+
+    .mini-app-header {
+      background: #faf9f7;
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border-bottom: 1px solid #e8e7e4;
+    }
+
+    .mini-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .mini-dot.red { background: #ff5f57; }
+    .mini-dot.yellow { background: #ffbd2e; }
+    .mini-dot.green { background: #28c840; }
+
+    .mini-app-content {
+      padding: 8px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .mini-card {
+      background: #f5f5f5;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .mini-card-thumb {
+      height: 24px;
+    }
+
+    .mini-card-thumb.g1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .mini-card-thumb.g2 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .mini-card-thumb.g3 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    .mini-card-thumb.g4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+
+    .mini-card-info {
+      padding: 4px;
+    }
+
+    .mini-card-title {
+      font-size: 6px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+  </style>
+</head>
+<body>
+  <div class="dimension-label">440 x 280 (Small Promo Tile)</div>
+  <div class="frame">
+    <div class="capture-area">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+
+      <div class="content">
+        <div class="text-side">
+          <div class="logo">
+            <span class="logo-icon">🪆</span>
+            <span class="logo-text">Layerdolls</span>
+          </div>
+          <h1 class="headline">
+            Your bookmarks,<br>
+            <span>organized</span>
+          </h1>
+          <p class="subheadline">
+            Save & search with nested collections
+          </p>
+        </div>
+
+        <div class="mini-app">
+          <div class="mini-app-header">
+            <div class="mini-dot red"></div>
+            <div class="mini-dot yellow"></div>
+            <div class="mini-dot green"></div>
+          </div>
+          <div class="mini-app-content">
+            <div class="mini-card">
+              <div class="mini-card-thumb g1"></div>
+              <div class="mini-card-info">
+                <div class="mini-card-title">React</div>
+              </div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-card-thumb g2"></div>
+              <div class="mini-card-info">
+                <div class="mini-card-title">Design</div>
+              </div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-card-thumb g3"></div>
+              <div class="mini-card-info">
+                <div class="mini-card-title">Notion</div>
+              </div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-card-thumb g4"></div>
+              <div class="mini-card-info">
+                <div class="mini-card-title">Go</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

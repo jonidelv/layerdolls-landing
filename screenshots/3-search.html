@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenshot 3 - Full-Text Search</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .dimension-label {
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .frame {
+      border: 3px solid #fff;
+    }
+
+    .capture-area {
+      width: 1280px;
+      height: 800px;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .tagline {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2383e2;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .title {
+      font-size: 48px;
+      font-weight: 800;
+      color: #1a1a1a;
+      letter-spacing: -1px;
+    }
+
+    .title span {
+      color: #2383e2;
+    }
+
+    /* Search container */
+    .search-container {
+      width: 800px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+
+    .search-header {
+      padding: 24px;
+      border-bottom: 1px solid #e8e7e4;
+    }
+
+    .search-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: #f5f5f5;
+      border-radius: 12px;
+    }
+
+    .search-icon {
+      font-size: 20px;
+      color: #2383e2;
+    }
+
+    .search-input {
+      flex: 1;
+      font-size: 18px;
+      font-weight: 500;
+      color: #1a1a1a;
+      border: none;
+      background: none;
+      outline: none;
+    }
+
+    .search-input::placeholder {
+      color: #999;
+    }
+
+    .search-filters {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .filter-chip {
+      padding: 6px 12px;
+      background: #e8f4fd;
+      color: #2383e2;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .filter-chip.active {
+      background: #2383e2;
+      color: white;
+    }
+
+    /* Results */
+    .search-results {
+      padding: 16px;
+    }
+
+    .results-count {
+      font-size: 13px;
+      color: #666;
+      padding: 0 8px 12px;
+    }
+
+    .result-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      transition: background 0.2s;
+    }
+
+    .result-item:hover {
+      background: #faf9f7;
+    }
+
+    .result-thumb {
+      width: 80px;
+      height: 60px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .result-thumb.purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .result-thumb.blue { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .result-thumb.orange { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+
+    .result-content {
+      flex: 1;
+    }
+
+    .result-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .result-title mark {
+      background: #fff3cd;
+      color: #1a1a1a;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+
+    .result-url {
+      font-size: 12px;
+      color: #2383e2;
+      margin-bottom: 8px;
+    }
+
+    .result-snippet {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .result-snippet mark {
+      background: #fff3cd;
+      color: #1a1a1a;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+
+    .result-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .result-collection {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: #888;
+      background: #f0f0f0;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* Highlight box */
+    .highlight-box {
+      position: absolute;
+      right: 160px;
+      top: 250px;
+      background: #1a1a1c;
+      color: white;
+      padding: 20px 24px;
+      border-radius: 12px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+      max-width: 260px;
+    }
+
+    .highlight-box-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .highlight-box-text {
+      font-size: 13px;
+      color: #aaa;
+      line-height: 1.5;
+    }
+
+    .highlight-box-text strong {
+      color: #dcc28f;
+    }
+  </style>
+</head>
+<body>
+  <div class="dimension-label">1280 x 800 (Screenshot)</div>
+  <div class="frame">
+    <div class="capture-area">
+      <div class="header">
+        <div class="tagline">Find Anything</div>
+        <h1 class="title">Powerful <span>full-text</span> search</h1>
+      </div>
+
+      <div style="position: relative;">
+        <div class="search-container">
+          <div class="search-header">
+            <div class="search-input-wrapper">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" value="productivity tips" placeholder="Search bookmarks...">
+            </div>
+            <div class="search-filters">
+              <span class="filter-chip active">All</span>
+              <span class="filter-chip">Title</span>
+              <span class="filter-chip active">Content</span>
+              <span class="filter-chip">URL</span>
+            </div>
+          </div>
+
+          <div class="search-results">
+            <div class="results-count">2 results found</div>
+
+            <div class="result-item">
+              <div class="result-thumb purple">📝</div>
+              <div class="result-content">
+                <div class="result-title">10 <mark>Productivity</mark> <mark>Tips</mark> for Developers</div>
+                <div class="result-url">medium.com/article/10-productivity-tips</div>
+                <div class="result-snippet">
+                  In today's fast-paced development environment, staying <mark>productive</mark> is more important than ever. Here are the top <mark>tips</mark> that have helped thousands...
+                </div>
+                <div class="result-meta">
+                  <span class="result-collection">💼 Work</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-item">
+              <div class="result-thumb blue">📊</div>
+              <div class="result-content">
+                <div class="result-title">The Ultimate <mark>Productivity</mark> System</div>
+                <div class="result-url">notion.so/productivity-system-guide</div>
+                <div class="result-snippet">
+                  Build a personal <mark>productivity</mark> system that actually works. These <mark>tips</mark> will help you manage your time, tasks, and energy effectively...
+                </div>
+                <div class="result-meta">
+                  <span class="result-collection">📚 Learning</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <div class="highlight-box-title">
+            <span>⚡</span>
+            Search page content
+          </div>
+          <div class="highlight-box-text">
+            Find bookmarks by <strong>what's inside</strong> the page, not just titles. Every saved page is fully searchable.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

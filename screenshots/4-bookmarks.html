@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenshot 4 - Beautiful Bookmarks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .dimension-label {
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .frame {
+      border: 3px solid #fff;
+    }
+
+    .capture-area {
+      width: 1280px;
+      height: 800px;
+      background: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .tagline {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2383e2;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .title {
+      font-size: 48px;
+      font-weight: 800;
+      color: #1a1a1a;
+      letter-spacing: -1px;
+    }
+
+    .title span {
+      color: #2383e2;
+    }
+
+    /* Bookmark grid */
+    .bookmark-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .bookmark-card {
+      width: 240px;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .bookmark-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .bookmark-thumb {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      position: relative;
+    }
+
+    .bookmark-thumb::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.1));
+    }
+
+    /* Different gradient backgrounds */
+    .thumb-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .thumb-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    .thumb-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .thumb-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    .thumb-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    .thumb-6 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+    .thumb-7 { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+    .thumb-8 { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+
+    .bookmark-favorite {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 18px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .bookmark-info {
+      padding: 16px;
+    }
+
+    .bookmark-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 6px;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .bookmark-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .bookmark-url {
+      font-size: 12px;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .bookmark-url-icon {
+      width: 14px;
+      height: 14px;
+      background: #e0e0e0;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+    }
+
+    .bookmark-date {
+      font-size: 11px;
+      color: #aaa;
+    }
+
+    /* Feature badges */
+    .features {
+      display: flex;
+      gap: 16px;
+      margin-top: 50px;
+    }
+
+    .feature-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 14px 24px;
+      border-radius: 50px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .feature-icon {
+      font-size: 20px;
+    }
+
+    .feature-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+  </style>
+</head>
+<body>
+  <div class="dimension-label">1280 x 800 (Screenshot)</div>
+  <div class="frame">
+    <div class="capture-area">
+      <div class="header">
+        <div class="tagline">Beautiful & Visual</div>
+        <h1 class="title">Your bookmarks, <span>organized</span></h1>
+      </div>
+
+      <div class="bookmark-grid">
+        <div class="bookmark-card">
+          <div class="bookmark-thumb thumb-1">
+            <span>🚀</span>
+            <span class="bookmark-favorite">❤️</span>
+          </div>
+          <div class="bookmark-info">
+            <div class="bookmark-title">How to Build a Startup in 2025</div>
+            <div class="bookmark-meta">
+              <span class="bookmark-url">
+                <span class="bookmark-url-icon">Y</span>
+                ycombinator.com
+              </span>
+              <span class="bookmark-date">2d ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bookmark-card">
+          <div class="bookmark-thumb thumb-2">
+            <span>🎨</span>
+          </div>
+          <div class="bookmark-info">
+            <div class="bookmark-title">Design Systems Best Practices</div>
+            <div class="bookmark-meta">
+              <span class="bookmark-url">
+                <span class="bookmark-url-icon">F</span>
+                figma.com
+              </span>
+              <span class="bookmark-date">1w ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bookmark-card">
+          <div class="bookmark-thumb thumb-3">
+            <span>💻</span>
+            <span class="bookmark-favorite">❤️</span>
+          </div>
+          <div class="bookmark-info">
+            <div class="bookmark-title">React 19 New Features Guide</div>
+            <div class="bookmark-meta">
+              <span class="bookmark-url">
+                <span class="bookmark-url-icon">R</span>
+                react.dev
+              </span>
+              <span class="bookmark-date">3d ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bookmark-card">
+          <div class="bookmark-thumb thumb-4">
+            <span>📊</span>
+          </div>
+          <div class="bookmark-info">
+            <div class="bookmark-title">Data Visualization with D3.js</div>
+            <div class="bookmark-meta">
+              <span class="bookmark-url">
+                <span class="bookmark-url-icon">O</span>
+                observablehq.com
+              </span>
+              <span class="bookmark-date">5d ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bookmark-card">
+          <div class="bookmark-thumb thumb-5">
+            <span>📱</span>
+          </div>
+          <div class="bookmark-info">
+            <div class="bookmark-title">Mobile App UI Patterns</div>
+            <div class="bookmark-meta">
+              <span class="bookmark-url">
+                <span class="bookmark-url-icon">M</span>
+                mobbin.com
+              </span>
+              <span class="bookmark-date">1w ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bookmark-card">
+          <div class="bookmark-thumb thumb-6">
+            <span>🤖</span>
+            <span class="bookmark-favorite">❤️</span>
+          </div>
+          <div class="bookmark-info">
+            <div class="bookmark-title">Introduction to Machine Learning</div>
+            <div class="bookmark-meta">
+              <span class="bookmark-url">
+                <span class="bookmark-url-icon">C</span>
+                coursera.org
+              </span>
+              <span class="bookmark-date">2w ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bookmark-card">
+          <div class="bookmark-thumb thumb-7">
+            <span>📝</span>
+          </div>
+          <div class="bookmark-info">
+            <div class="bookmark-title">Writing Better Documentation</div>
+            <div class="bookmark-meta">
+              <span class="bookmark-url">
+                <span class="bookmark-url-icon">D</span>
+                dev.to
+              </span>
+              <span class="bookmark-date">4d ago</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bookmark-card">
+          <div class="bookmark-thumb thumb-8">
+            <span>🎯</span>
+          </div>
+          <div class="bookmark-info">
+            <div class="bookmark-title">Goal Setting Framework OKRs</div>
+            <div class="bookmark-meta">
+              <span class="bookmark-url">
+                <span class="bookmark-url-icon">N</span>
+                notion.so
+              </span>
+              <span class="bookmark-date">1w ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

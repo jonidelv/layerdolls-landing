@@ -51,7 +51,7 @@
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -164,16 +164,13 @@
     :root {
       --primary: #2383e2;
       --primary-hover: #1a6fc2;
-      --primary-light: #5ba3eb;
-      --text: #1e1e2e;
-      --text-muted: #64748b;
+      --text: #1a1a2e;
+      --text-muted: #6b7280;
       --bg: #ffffff;
-      --bg-warm: #f8fafc;
-      --border: #e2e8f0;
-      --accent-coral: #ffe4d6;
-      --accent-peach: #fff0e6;
-      --accent-blue: #e8f4fd;
-      --accent-mint: #e6f7f2;
+      --border: #e5e7eb;
+      --gradient-1: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      --gradient-2: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      --gradient-3: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
     }
 
     body {
@@ -183,7 +180,6 @@
       line-height: 1.6;
       background: var(--bg);
       overflow-x: hidden;
-      position: relative;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
@@ -191,28 +187,28 @@
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 24px;
-      overflow: visible;
     }
 
     /* Header */
     header {
-      padding: 16px 0;
+      padding: 20px 0;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       background: transparent;
       z-index: 100;
-      transition: box-shadow 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     header.scrolled {
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
     header .container {
@@ -235,35 +231,21 @@
     }
 
     .logo-text {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: baseline;
-      position: relative;
-      top: 2px;
-    }
-
-    .logo-text .domain {
-      font-weight: 400;
-      font-size: 10px;
-      color: var(--text-muted);
-      position: relative;
-      top: 0;
-      margin-left: 1px;
+      letter-spacing: -0.03em;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 36px;
+      gap: 40px;
     }
 
     .nav-links a {
       color: var(--text);
       text-decoration: none;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 500;
       transition: opacity 0.2s;
     }
@@ -279,18 +261,21 @@
     }
 
     .nav-login svg {
-      width: 18px;
-      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .nav-cta {
+      display: flex;
+      gap: 12px;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      height: 40px;
+      height: 44px;
       padding: 0 24px;
-      border-radius: 6px;
+      border-radius: 10px;
       font-size: 15px;
       font-weight: 600;
       text-decoration: none;
@@ -300,113 +285,109 @@
     }
 
     .btn-primary {
-      background: var(--primary);
+      background: var(--text);
       color: white;
     }
 
     .btn-primary:hover {
-      background: var(--primary-hover);
+      background: #2d2d4a;
       transform: translateY(-1px);
     }
 
-    .btn-outline {
+    .btn-secondary {
       background: transparent;
-      color: var(--primary);
-      border: 1px solid var(--primary);
+      color: var(--text);
+      border: 1px solid var(--border);
     }
 
-    .btn-outline:hover {
-      background: rgba(35, 131, 226, 0.05);
+    .btn-secondary:hover {
+      background: #f9fafb;
     }
 
-    /* Decorative blobs */
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      z-index: -1;
-      pointer-events: none;
-      animation: blob-float 8s ease-in-out infinite;
-    }
-
-    @keyframes blob-float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(30px, -20px) scale(1.05); }
-      66% { transform: translate(-20px, 20px) scale(0.95); }
-    }
-
-    .blob-1 {
-      width: 600px;
-      height: 600px;
-      background: linear-gradient(135deg, #fda4af 0%, #fcd9bd 100%);
-      top: 60px;
-      left: -250px;
-      opacity: 0.4;
-      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    }
-
-    .blob-2 {
-      width: 500px;
-      height: 500px;
-      background: linear-gradient(135deg, #fcd9bd 0%, #fef3c7 100%);
-      top: 120px;
-      right: -200px;
-      opacity: 0.4;
-      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-      animation-delay: -4s;
-    }
-
-    /* Hero */
+    /* Hero Section */
     .hero {
-      padding: 160px 0 120px;
+      padding: 175px 0 100px;
       text-align: center;
       position: relative;
+      overflow: hidden;
     }
 
-    .hero-icon {
-      font-size: 80px;
-      margin-bottom: 28px;
-      display: block;
-      animation: bounce-soft 3s ease-in-out infinite;
+    .hero-mockup {
+      position: relative;
+      margin-bottom: 60px;
     }
 
-    @keyframes bounce-soft {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    .hero-card {
+      width: 280px;
+      height: 180px;
+      background: var(--gradient-1);
+      border-radius: 20px;
+      margin: 0 auto;
+      position: relative;
+      transform: perspective(1000px) rotateX(5deg) rotateY(-5deg);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-card::before {
+      content: '🪆';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 60px;
+    }
+
+    .hero-card-float {
+      position: absolute;
+      background: white;
+      border-radius: 12px;
+      padding: 12px 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .hero-card-float.left {
+      left: -60px;
+      top: 20px;
+      transform: rotate(-5deg);
+    }
+
+    .hero-card-float.right {
+      right: -60px;
+      bottom: 20px;
+      transform: rotate(5deg);
     }
 
     .hero h1 {
-      font-size: 56px;
+      font-size: 64px;
       font-weight: 800;
       line-height: 1.1;
       margin-bottom: 24px;
-      letter-spacing: -0.03em;
-      color: var(--text);
+      letter-spacing: -0.04em;
     }
 
-    .hero h1 .highlight {
-      color: var(--primary);
-    }
-
-    .hero h1 .emoji {
-      display: inline-block;
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .hero .subtitle {
-      font-size: 20px;
+      font-size: 19px;
       color: var(--text);
-      max-width: 650px;
+      max-width: 700px;
       margin: 0 auto 20px;
-      line-height: 1.7;
       font-weight: 500;
     }
 
     .hero .description {
-      font-size: 17px;
+      font-size: 16px;
       color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 48px;
-      line-height: 1.8;
+      max-width: 620px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
     }
 
     .hero .description strong {
@@ -420,366 +401,417 @@
       justify-content: center;
     }
 
-    /* Feature Section */
+    /* Stats Section */
+    .stats {
+      padding: 80px 0;
+    }
+
+    .stats-header {
+      margin-bottom: 60px;
+    }
+
+    .stats-header h2 {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .stats-header p {
+      font-size: 17px;
+      color: var(--text-muted);
+      max-width: 500px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .stat-card {
+      padding: 32px;
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card:nth-child(1) {
+      background: var(--gradient-1);
+    }
+
+    .stat-card:nth-child(2) {
+      background: var(--gradient-2);
+    }
+
+    .stat-card:nth-child(3) {
+      background: var(--gradient-3);
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 15px;
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    /* Big Statement */
+    .statement {
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .statement h2 {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .statement h2 .gradient {
+      background: linear-gradient(135deg, #2383e2 0%, #667eea 50%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .statement h2 .muted {
+      color: var(--text-muted);
+    }
+
+    /* Feature Sections */
     .feature-section {
       padding: 100px 0;
-      position: relative;
-      overflow: visible;
     }
 
     .feature-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      gap: 80px;
       align-items: center;
-      margin-bottom: 80px;
-      position: relative;
+      margin-bottom: 120px;
     }
 
     .feature-row:last-child {
       margin-bottom: 0;
     }
 
-    .feature-row.reverse .feature-content {
-      order: 2;
+    .feature-row.reverse {
+      direction: rtl;
     }
 
-    .feature-row.reverse .feature-visual {
-      order: 1;
+    .feature-row.reverse > * {
+      direction: ltr;
     }
 
-    .feature-content h2 {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      letter-spacing: -0.02em;
-      color: var(--text);
+    .feature-content h3 {
+      font-size: 38px;
+      font-weight: 800;
       line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
     }
 
-    .feature-content > p {
+    .feature-content p {
       font-size: 17px;
       color: var(--text-muted);
       margin-bottom: 32px;
       line-height: 1.7;
     }
 
-    .feature-list {
-      list-style: none;
+    .feature-content .btn {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--text);
+      height: 48px;
+      padding: 0 28px;
     }
 
-    .feature-item {
-      padding: 18px 22px;
-      border-radius: 16px;
-      margin-bottom: 12px;
-      transition: all 0.3s ease;
-      border: 1px solid transparent;
+    .feature-content .btn:hover {
+      background: var(--text);
+      color: white;
     }
 
-    .feature-item:hover {
+    /* App Mockup Cards */
+    .app-mockup {
+      background: #f8f9fa;
+      border-radius: 24px;
+      padding: 40px;
+      position: relative;
+    }
+
+    .mockup-card {
       background: white;
-      border-color: var(--border);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-      transform: translateX(4px);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
 
-    .feature-item.highlighted {
-      background: var(--accent-blue);
-      border-left: 3px solid var(--primary);
-      border-radius: 4px 16px 16px 4px;
+    .mockup-card + .mockup-card {
+      margin-top: 16px;
     }
 
-    .feature-item-header {
+    .mockup-header {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 4px;
+      margin-bottom: 16px;
     }
 
-    .feature-item-icon {
+    .mockup-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--gradient-1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .mockup-title {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .mockup-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .mockup-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .mockup-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+
+    .mockup-item-icon {
       font-size: 18px;
     }
 
-    .feature-item-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--primary);
-    }
-
-    .feature-item p {
+    .mockup-item-text {
       font-size: 14px;
-      color: var(--text-muted);
-      margin-left: 30px;
-    }
-
-    .feature-visual {
-      position: relative;
-      min-height: 360px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .feature-visual::before {
-      content: '';
-      position: absolute;
-      top: -60px;
-      left: -60px;
-      right: -60px;
-      bottom: -60px;
-      background: #fde4d2;
-      border-radius: 50% 40% 45% 55% / 55% 45% 50% 45%;
-      filter: blur(80px);
-      opacity: 0.45;
-      z-index: -1;
-    }
-
-    .feature-row.reverse .feature-visual::before {
-      background: #f9cdd3;
-    }
-
-    .feature-visual-content {
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .feature-visual-icon {
-      font-size: 80px;
-      margin-bottom: 20px;
-      display: block;
-    }
-
-    .feature-visual-text {
-      font-size: 15px;
-      color: var(--text-muted);
       font-weight: 500;
     }
 
-    /* Simple Features Grid */
-    .simple-features {
-      padding: 70px 0 100px;
+    .mockup-item-meta {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--text-muted);
     }
 
-    .simple-features h2 {
+    /* More Features Grid */
+    .more-features {
+      padding: 100px 0 130px;
+      background: #f8f9fa;
+    }
+
+    .more-features h2 {
       text-align: center;
-      font-size: 36px;
+      font-size: 42px;
       font-weight: 800;
+      letter-spacing: -0.03em;
       margin-bottom: 60px;
-      letter-spacing: -0.02em;
     }
 
-    .simple-features-grid {
+    .features-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 32px;
-      max-width: 1000px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
-    .simple-feature {
+    .feature-card {
+      background: white;
+      padding: 20px 16px;
+      border-radius: 16px;
       text-align: center;
-      padding: 32px 24px;
-      border-radius: 20px;
       transition: all 0.3s ease;
     }
 
-    .simple-feature:hover {
-      background: white;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    .feature-card:hover {
       transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
     }
 
-    .simple-feature-icon {
-      width: 64px;
-      height: 64px;
-      background: var(--accent-coral);
-      border-radius: 16px;
+    .feature-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
-      font-size: 28px;
+      margin: 0 auto 12px;
+      font-size: 20px;
     }
 
-    .simple-feature:nth-child(2) .simple-feature-icon {
-      background: var(--accent-blue);
-    }
+    .feature-card:nth-child(1) .feature-card-icon { background: #dbeafe; }
+    .feature-card:nth-child(2) .feature-card-icon { background: #fef3c7; }
+    .feature-card:nth-child(3) .feature-card-icon { background: #d1fae5; }
+    .feature-card:nth-child(4) .feature-card-icon { background: #fce7f3; }
+    .feature-card:nth-child(5) .feature-card-icon { background: #e0e7ff; }
+    .feature-card:nth-child(6) .feature-card-icon { background: #fef3c7; }
 
-    .simple-feature:nth-child(3) .simple-feature-icon {
-      background: var(--accent-mint);
-    }
-
-    .simple-feature:nth-child(4) .simple-feature-icon {
-      background: var(--accent-peach);
-    }
-
-    .simple-feature:nth-child(5) .simple-feature-icon {
-      background: #e8f4fd;
-    }
-
-    .simple-feature:nth-child(6) .simple-feature-icon {
-      background: #fef3c7;
-    }
-
-    .simple-feature:nth-child(7) .simple-feature-icon {
-      background: #fce7f3;
-    }
-
-    .simple-feature:nth-child(8) .simple-feature-icon {
-      background: #d1fae5;
-    }
-
-    .simple-feature h3 {
-      font-size: 17px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--text);
-    }
-
-    .simple-feature p {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* FAQ Section */
-    .faq-section {
-      padding: 100px 0;
-    }
-
-    .faq-section h2 {
-      text-align: center;
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 48px;
-      letter-spacing: -0.02em;
-    }
-
-    .faq-list {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-      padding: 24px 0;
-    }
-
-    .faq-item:first-child {
-      border-top: 1px solid var(--border);
-    }
-
-    .faq-item h3 {
-      font-size: 17px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: var(--text);
-    }
-
-    .faq-item p {
+    .feature-card h3 {
       font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .feature-card p {
+      font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.4;
     }
 
-    /* CTA */
+    /* CTA Section */
     .cta {
-      padding: 100px 0;
+      padding: 120px 0;
+      background: #000000;
       text-align: center;
-      position: relative;
-    }
-
-    .cta::before {
-      content: '';
-      position: absolute;
-      width: 455px;
-      height: 455px;
-      background: #f9cdd3;
-      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-      filter: blur(100px);
-      opacity: 0.5;
-      top: -150px;
-      left: -100px;
-      z-index: 0;
-    }
-
-    .cta::after {
-      content: '';
-      position: absolute;
-      width: 390px;
-      height: 390px;
-      background: #fde4d2;
-      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-      filter: blur(100px);
-      opacity: 0.6;
-      bottom: -100px;
-      right: -50px;
-      z-index: 0;
-    }
-
-    .cta .container {
-      position: relative;
-      z-index: 1;
     }
 
     .cta h2 {
-      font-size: 44px;
+      font-size: 48px;
       font-weight: 800;
+      color: white;
+      letter-spacing: -0.03em;
       margin-bottom: 16px;
-      letter-spacing: -0.02em;
     }
 
     .cta p {
       font-size: 18px;
-      color: var(--text-muted);
+      color: rgba(255, 255, 255, 0.7);
       margin-bottom: 40px;
+    }
+
+    .cta .btn-primary {
+      background: #dcc28f;
+      color: #000000;
+      height: 44px;
+      padding: 0 24px;
+      font-size: 15px;
+    }
+
+    .cta .btn-primary:hover {
+      background: #c9af7d;
     }
 
     /* Footer */
     footer {
-      padding: 32px 0;
-      margin-top: 60px;
+      padding: 60px 0 40px;
+      border-top: 1px solid var(--border);
     }
 
-    footer .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
     }
 
-    .footer-left {
+    .footer-brand {
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand span:first-child {
+      font-size: 28px;
+    }
+
+    .footer-brand span:last-child {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .footer-desc {
       font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 280px;
     }
 
-    .footer-links {
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 15px;
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 12px;
+      transition: opacity 0.2s;
+    }
+
+    .footer-col a:hover {
+      opacity: 0.7;
+    }
+
+    .footer-bottom {
       display: flex;
-      gap: 28px;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
     }
 
-    .footer-links a {
+    .footer-bottom p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-links a {
+      font-size: 14px;
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 14px;
-      transition: color 0.2s;
     }
 
-    .footer-links a:hover {
+    .footer-bottom-links a:hover {
       color: var(--text);
     }
 
     /* Responsive */
-    @media (max-width: 900px) {
+    @media (max-width: 1024px) {
       .hero h1 {
-        font-size: 36px;
+        font-size: 48px;
       }
 
-      .hero .subtitle {
-        font-size: 17px;
+      .statement h2 {
+        font-size: 38px;
       }
 
       .feature-row {
@@ -787,16 +819,62 @@
         gap: 40px;
       }
 
-      .feature-row.reverse .feature-content,
-      .feature-row.reverse .feature-visual {
-        order: unset;
+      .feature-row.reverse {
+        direction: ltr;
       }
 
-      .simple-features-grid {
+      .features-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .nav-links a:not(.nav-login) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 140px 0 60px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero .subtitle {
+        font-size: 16px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-header h2 {
+        font-size: 32px;
+      }
+
+      .statement h2 {
+        font-size: 28px;
+      }
+
+      .feature-content h3 {
+        font-size: 28px;
+      }
+
+      .more-features h2 {
+        font-size: 32px;
+      }
+
+      .cta h2 {
+        font-size: 32px;
+      }
+
+      .nav-links a:not(:last-child) {
+        display: none;
+      }
+
+      .nav-cta .btn-secondary {
         display: none;
       }
 
@@ -805,36 +883,33 @@
         align-items: center;
       }
 
-      footer .container {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
       }
 
-      .blob {
-        opacity: 0.3;
+      .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Decorative blobs -->
-  <div class="blob blob-1" aria-hidden="true"></div>
-  <div class="blob blob-2" aria-hidden="true"></div>
-
-  <header role="banner">
+  <header>
     <div class="container">
-      <a href="/" class="logo" aria-label="LAYERDOLLS - Bookmark Manager Home">
-        <span class="logo-icon" aria-hidden="true">🪆</span>
-        <span class="logo-text">LAYERDOLLS<span class="domain">.com</span></span>
+      <a href="/" class="logo">
+        <span class="logo-icon">🪆</span>
+        <span class="logo-text">layerdolls</span>
       </a>
-      <nav class="nav-links" role="navigation" aria-label="Main navigation">
+      <nav class="nav-links">
         <a href="#features">Features</a>
         <a href="#search">Search</a>
-        <a href="javascript:void(0)" onclick="goToApp()" class="nav-login" aria-label="Login to LAYERDOLLS">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
+        <a href="javascript:void(0)" onclick="goToApp()" class="nav-login">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M20 21a8 8 0 1 0-16 0"/>
           </svg>
           Login
         </a>
@@ -842,175 +917,255 @@
     </div>
   </header>
 
-  <main role="main">
-    <section class="hero" aria-labelledby="hero-heading">
+  <main>
+    <!-- Hero -->
+    <section class="hero">
       <div class="container">
-        <span class="hero-icon" aria-hidden="true">🪆</span>
-        <h1 id="hero-heading">Your Internet, Organized. <span class="highlight">For free</span>.</h1>
-        <p class="subtitle">
-          Save, sort, and rediscover your bookmarks effortlessly in one place.
-        </p>
-        <p class="description">
-          Stop juggling tabs and forgotten bookmarks. <strong>Layerdolls</strong> helps you capture, organize, and search links in one place with full-text search, collections, and AI-powered organization for a tidy digital life.
-        </p>
+        <div class="hero-mockup">
+          <div class="hero-card">
+            <div class="hero-card-float left">📚 12 collections</div>
+            <div class="hero-card-float right">✨ 247 bookmarks</div>
+          </div>
+        </div>
+        <h1>Your Internet, Organized. <span class="gradient">For free.</span></h1>
+        <p class="subtitle">Save, sort, and rediscover your bookmarks effortlessly in one place.</p>
+        <p class="description">Stop juggling tabs and forgotten bookmarks. <strong>Layerdolls</strong> helps you capture, organize, and search links in one place with full-text search, collections, and AI-powered organization for a tidy digital life.</p>
         <div class="hero-buttons">
-          <a href="javascript:void(0)" onclick="goToApp()" class="btn btn-primary" aria-label="Start using LAYERDOLLS for free">Get started free</a>
-          <a href="#features" class="btn btn-outline">Learn more</a>
+          <a href="javascript:void(0)" onclick="goToApp()" class="btn btn-primary">Get started free</a>
+          <a href="#features" class="btn btn-secondary">Learn more</a>
         </div>
       </div>
     </section>
 
-    <section class="feature-section" id="features" aria-labelledby="features-heading">
+    <!-- Stats -->
+    <section class="stats">
       <div class="container">
-        <article class="feature-row">
-          <div class="feature-content">
-            <h2 id="features-heading">Organize bookmarks with nested collections</h2>
-            <p>Untangle your bookmarks mess with powerful organization. Create folders within folders and keep everything tidy.</p>
-            <ul class="feature-list">
-              <li class="feature-item highlighted">
-                <div class="feature-item-header">
-                  <span class="feature-item-icon" aria-hidden="true">📁</span>
-                  <span class="feature-item-title">Nested bookmark folders</span>
-                </div>
-                <p>Group related bookmarks with unlimited nesting. Organize the way you think with hierarchical collections.</p>
-              </li>
-              <li class="feature-item">
-                <div class="feature-item-header">
-                  <span class="feature-item-icon" aria-hidden="true">❤️</span>
-                  <span class="feature-item-title">Favorite bookmarks</span>
-                </div>
-                <p>Mark important bookmarks as favorites for quick access anytime.</p>
-              </li>
-              <li class="feature-item">
-                <div class="feature-item-header">
-                  <span class="feature-item-icon" aria-hidden="true">😊</span>
-                  <span class="feature-item-title">Custom emoji icons</span>
-                </div>
-                <p>Personalize your bookmark collections with emoji icons for visual organization.</p>
-              </li>
-            </ul>
+        <div class="stats-header">
+          <h2>Bookmarks<br>made simple.</h2>
+          <p>Dive into the features that make organizing your digital life effortless.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Unlimited bookmarks</div>
           </div>
-          <div class="feature-visual" aria-hidden="true">
-            <div class="feature-visual-content">
-              <span class="feature-visual-icon">📚</span>
-              <p class="feature-visual-text">Your bookmarks, beautifully organized</p>
-            </div>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Free forever</div>
           </div>
-        </article>
-
-        <article class="feature-row reverse" id="search">
-          <div class="feature-content">
-            <h2>Powerful full-text bookmark search</h2>
-            <p>Find any saved bookmark instantly. Layerdolls searches through titles, URLs, and the actual content of your links.</p>
-            <ul class="feature-list">
-              <li class="feature-item highlighted">
-                <div class="feature-item-header">
-                  <span class="feature-item-icon" aria-hidden="true">🔍</span>
-                  <span class="feature-item-title">Full-text search</span>
-                </div>
-                <p>Search across bookmark titles, URLs, and full page content simultaneously.</p>
-              </li>
-              <li class="feature-item">
-                <div class="feature-item-header">
-                  <span class="feature-item-icon" aria-hidden="true">🤖</span>
-                  <span class="feature-item-title">AI-powered search</span>
-                </div>
-                <p>Search understands what you're looking for, not just keywords. Find any bookmark by its body content.</p>
-              </li>
-              <li class="feature-item">
-                <div class="feature-item-header">
-                  <span class="feature-item-icon" aria-hidden="true">⚡</span>
-                  <span class="feature-item-title">Instant results</span>
-                </div>
-                <p>Results appear as you type. Lightning-fast search with no waiting.</p>
-              </li>
-            </ul>
+          <div class="stat-card">
+            <div class="stat-number">&lt;1s</div>
+            <div class="stat-label">Search speed</div>
           </div>
-          <div class="feature-visual" aria-hidden="true">
-            <div class="feature-visual-content">
-              <span class="feature-visual-icon">🔎</span>
-              <p class="feature-visual-text">Search everything, find anything</p>
-            </div>
-          </div>
-        </article>
+        </div>
       </div>
     </section>
 
-    <section class="simple-features" aria-labelledby="more-features-heading">
+    <!-- Statement -->
+    <section class="statement">
       <div class="container">
-        <h2 id="more-features-heading">And so much more</h2>
-        <div class="simple-features-grid">
-          <article class="simple-feature">
-            <div class="simple-feature-icon" aria-hidden="true">✨</div>
-            <h3>Automatic metadata</h3>
-            <p>Fetches titles, descriptions, and images automatically</p>
-          </article>
-          <article class="simple-feature">
-            <div class="simple-feature-icon" aria-hidden="true">🧩</div>
+        <h2><span class="gradient">Save bookmarks,</span> <span class="muted">organize with nested collections,</span> <span class="gradient">& find anything</span> <span class="muted">with AI-powered search.</span></h2>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="feature-section" id="features">
+      <div class="container">
+        <div class="feature-row">
+          <div class="feature-content">
+            <h3>Nested collections & folders.</h3>
+            <p>Create unlimited nested folders to organize your bookmarks exactly how you think. Add custom emoji icons to make collections visually distinct and easy to navigate.</p>
+            <a href="javascript:void(0)" onclick="goToApp()" class="btn">Learn more</a>
+          </div>
+          <div class="app-mockup">
+            <div class="mockup-card">
+              <div class="mockup-header">
+                <div class="mockup-icon">📁</div>
+                <div>
+                  <div class="mockup-title">Collections</div>
+                  <div class="mockup-subtitle">12 folders</div>
+                </div>
+              </div>
+              <div class="mockup-list">
+                <div class="mockup-item">
+                  <span class="mockup-item-icon">💼</span>
+                  <span class="mockup-item-text">Work</span>
+                  <span class="mockup-item-meta">24 items</span>
+                </div>
+                <div class="mockup-item">
+                  <span class="mockup-item-icon">📖</span>
+                  <span class="mockup-item-text">Reading List</span>
+                  <span class="mockup-item-meta">18 items</span>
+                </div>
+                <div class="mockup-item">
+                  <span class="mockup-item-icon">🎨</span>
+                  <span class="mockup-item-text">Design Inspiration</span>
+                  <span class="mockup-item-meta">45 items</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-row reverse" id="search">
+          <div class="feature-content">
+            <h3>Full-text & AI search.</h3>
+            <p>Search across titles, URLs, and the full content of your saved pages. Our AI understands what you're looking for, not just keywords, find any bookmark instantly.</p>
+            <a href="javascript:void(0)" onclick="goToApp()" class="btn">Learn more</a>
+          </div>
+          <div class="app-mockup">
+            <div class="mockup-card">
+              <div class="mockup-header">
+                <div class="mockup-icon" style="background: var(--gradient-2);">🔍</div>
+                <div>
+                  <div class="mockup-title">Search results</div>
+                  <div class="mockup-subtitle">"react hooks tutorial"</div>
+                </div>
+              </div>
+              <div class="mockup-list">
+                <div class="mockup-item">
+                  <span class="mockup-item-icon">📄</span>
+                  <span class="mockup-item-text">React Hooks Guide</span>
+                  <span class="mockup-item-meta">98% match</span>
+                </div>
+                <div class="mockup-item">
+                  <span class="mockup-item-icon">🎥</span>
+                  <span class="mockup-item-text">useEffect Tutorial</span>
+                  <span class="mockup-item-meta">94% match</span>
+                </div>
+                <div class="mockup-item">
+                  <span class="mockup-item-icon">📚</span>
+                  <span class="mockup-item-text">Custom Hooks Patterns</span>
+                  <span class="mockup-item-meta">89% match</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-row">
+          <div class="feature-content">
+            <h3>Auto metadata & content.</h3>
+            <p>Save a link and let Layerdolls do the rest. Titles, descriptions, and images are fetched automatically. Full page content is extracted so you can search it by its content.</p>
+            <a href="javascript:void(0)" onclick="goToApp()" class="btn">Learn more</a>
+          </div>
+          <div class="app-mockup">
+            <div class="mockup-card">
+              <div class="mockup-header">
+                <div class="mockup-icon" style="background: var(--gradient-3);">✨</div>
+                <div>
+                  <div class="mockup-title">Auto-captured</div>
+                  <div class="mockup-subtitle">Just paste the URL</div>
+                </div>
+              </div>
+              <div class="mockup-list">
+                <div class="mockup-item">
+                  <span class="mockup-item-icon">📝</span>
+                  <span class="mockup-item-text">Title extracted</span>
+                  <span class="mockup-item-meta">✓</span>
+                </div>
+                <div class="mockup-item">
+                  <span class="mockup-item-icon">🖼️</span>
+                  <span class="mockup-item-text">Image fetched</span>
+                  <span class="mockup-item-meta">✓</span>
+                </div>
+                <div class="mockup-item">
+                  <span class="mockup-item-icon">📄</span>
+                  <span class="mockup-item-text">Full content saved</span>
+                  <span class="mockup-item-meta">✓</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- More Features -->
+    <section class="more-features" id="more">
+      <div class="container">
+        <h2>And much more.</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-card-icon">🧩</div>
             <h3>Chrome Extension</h3>
             <p>Save bookmarks with one click from your browser</p>
-          </article>
-          <article class="simple-feature">
-            <div class="simple-feature-icon" aria-hidden="true">📄</div>
-            <h3>Content extraction</h3>
-            <p>Save full page content and images for later reading</p>
-          </article>
-          <article class="simple-feature">
-            <div class="simple-feature-icon" aria-hidden="true">🌓</div>
-            <h3>Dark & Light themes</h3>
-            <p>Switch between themes to match your preference</p>
-          </article>
-          <article class="simple-feature">
-            <div class="simple-feature-icon" aria-hidden="true">📥</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon">🌓</div>
+            <h3>Dark & Light</h3>
+            <p>Switch themes to match your preference</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon">📥</div>
             <h3>Import & Export</h3>
-            <p>Easily migrate your bookmarks from any browser</p>
-          </article>
-          <article class="simple-feature">
-            <div class="simple-feature-icon" aria-hidden="true">🔐</div>
-            <h3>Passwordless login</h3>
+            <p>Migrate bookmarks from any browser</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon">🔐</div>
+            <h3>Passwordless</h3>
             <p>Sign in securely with just your email</p>
-          </article>
-          <article class="simple-feature">
-            <div class="simple-feature-icon" aria-hidden="true">🖼️</div>
-            <h3>Visual previews</h3>
-            <p>See thumbnails and screenshots of your bookmarks</p>
-          </article>
-          <article class="simple-feature">
-            <div class="simple-feature-icon" aria-hidden="true">🎨</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon">❤️</div>
+            <h3>Favorites</h3>
+            <p>Quick access to your most important links</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-card-icon">🎨</div>
             <h3>Clean design</h3>
             <p>Minimal, distraction-free interface</p>
-          </article>
+          </div>
         </div>
       </div>
     </section>
 
-
-    <section class="cta" aria-labelledby="cta-heading">
+    <!-- CTA -->
+    <section class="cta">
       <div class="container">
-        <h2 id="cta-heading">Ready to organize your bookmarks?</h2>
-        <p>Start saving and organizing your bookmarks today. It's completely free.</p>
-        <a href="javascript:void(0)" onclick="goToApp()" class="btn btn-primary" aria-label="Get started with LAYERDOLLS for free">Get started free</a>
+        <h2>Take the next step.</h2>
+        <p>Start organizing your bookmarks today, it's completely free.</p>
+        <a href="javascript:void(0)" onclick="goToApp()" class="btn btn-primary">Get started now</a>
       </div>
     </section>
   </main>
 
-  <footer role="contentinfo">
+  <footer>
     <div class="container">
-      <div class="footer-left">
-        <span aria-hidden="true">🪆</span>
-        <span>LAYERDOLLS &copy; 2025 - Free Bookmark Manager</span>
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <span>🪆</span>
+            <span>layerdolls</span>
+          </div>
+          <p class="footer-desc">The free bookmark manager that helps you save, organize, and find your bookmarks instantly.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="#features">Features</a>
+          <a href="#more">More</a>
+          <a href="mailto:layerdolls@gmail.com">Support</a>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <a href="https://chrome.google.com/webstore/detail/layerdolls/TODO_EXTENSION_ID" target="_blank">Chrome Extension</a>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <a href="javascript:void(0)" onclick="goToApp()">Log in</a>
+          <a href="javascript:void(0)" onclick="goToApp()">Sign up</a>
+        </div>
       </div>
-      <nav class="footer-links" aria-label="Footer navigation">
-        <a href="/privacy.html">Privacy</a>
-        <a href="mailto:layerdolls@gmail.com">Support</a>
-        <a href="https://chrome.google.com/webstore/detail/layerdolls/TODO_EXTENSION_ID" target="_blank" rel="noopener">Extension</a>
-        <a href="javascript:void(0)" onclick="goToApp()">Login</a>
-      </nav>
+      <div class="footer-bottom">
+        <p>© 2025 Layerdolls. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="/privacy.html">Privacy policy</a>
+        </div>
+      </div>
     </div>
   </footer>
 
   <script>
-    // App URL configuration - auto-detect environment
     const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
     const APP_URL = isLocal ? 'http://localhost:5173' : 'https://app.layerdolls.com';
 
@@ -1018,10 +1173,9 @@
       window.location.href = APP_URL;
     }
 
-    // Header scroll effect
     const header = document.querySelector('header');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 55) {
+      if (window.scrollY > 50) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');

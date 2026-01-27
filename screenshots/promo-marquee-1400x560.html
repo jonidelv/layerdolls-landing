@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marquee - 1400x560</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .dimension-label {
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .frame {
+      border: 3px solid #fff;
+    }
+
+    .capture-area {
+      width: 1400px;
+      height: 560px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Decorative elements */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+    }
+
+    .blob-1 {
+      width: 350px;
+      height: 350px;
+      background: #2383e2;
+      top: -100px;
+      left: -50px;
+    }
+
+    .blob-2 {
+      width: 250px;
+      height: 250px;
+      background: #dcc28f;
+      bottom: -80px;
+      right: 200px;
+    }
+
+    .blob-3 {
+      width: 200px;
+      height: 200px;
+      background: #e94560;
+      top: 30%;
+      right: 5%;
+      opacity: 0.3;
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+      z-index: 1;
+      padding: 0 80px;
+    }
+
+    .text-side {
+      flex: 1;
+      max-width: 550px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .logo-icon {
+      font-size: 48px;
+    }
+
+    .logo-text {
+      font-size: 28px;
+      font-weight: 800;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+    }
+
+    .headline {
+      font-size: 52px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+
+    .headline span {
+      background: linear-gradient(90deg, #dcc28f, #f5d98e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subheadline {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .features-row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .feature-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 10px 18px;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .feature-pill-icon {
+      font-size: 16px;
+    }
+
+    .feature-pill-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: white;
+    }
+
+    /* App preview - horizontal layout for marquee */
+    .app-preview {
+      position: relative;
+      display: flex;
+      gap: 20px;
+    }
+
+    .app-window {
+      width: 320px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      transform: perspective(800px) rotateY(-3deg);
+    }
+
+    .app-header {
+      background: #faf9f7;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid #e8e7e4;
+    }
+
+    .app-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .app-dot.red { background: #ff5f57; }
+    .app-dot.yellow { background: #ffbd2e; }
+    .app-dot.green { background: #28c840; }
+
+    .app-content {
+      padding: 14px;
+    }
+
+    .app-sidebar-preview {
+      display: flex;
+      gap: 10px;
+    }
+
+    .mini-sidebar {
+      width: 100px;
+      background: #faf9f7;
+      border-radius: 6px;
+      padding: 8px;
+    }
+
+    .mini-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px;
+      border-radius: 4px;
+      margin-bottom: 2px;
+      font-size: 9px;
+      color: #37352f;
+    }
+
+    .mini-nav-item.active {
+      background: rgba(35, 131, 226, 0.1);
+      color: #2383e2;
+    }
+
+    .mini-bookmark-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+
+    .mini-bookmark {
+      background: #f5f5f5;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .mini-bookmark-thumb {
+      height: 32px;
+    }
+
+    .mini-bookmark-thumb.g1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .mini-bookmark-thumb.g2 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .mini-bookmark-thumb.g3 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    .mini-bookmark-thumb.g4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+
+    .mini-bookmark-info {
+      padding: 5px;
+    }
+
+    .mini-bookmark-title {
+      font-size: 7px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    /* Extension popup */
+    .popup-window {
+      width: 180px;
+      background: #1a1a1c;
+      border-radius: 10px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      transform: perspective(800px) rotateY(3deg);
+    }
+
+    .popup-tabs {
+      display: flex;
+      border-bottom: 1px solid #333;
+    }
+
+    .popup-tab {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+    }
+
+    .popup-tab.active {
+      color: #dcc28f;
+      border-bottom: 2px solid #dcc28f;
+    }
+
+    .popup-content {
+      padding: 12px;
+    }
+
+    .popup-card {
+      background: #2a2a2c;
+      border-radius: 6px;
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .popup-thumb {
+      width: 50px;
+      height: 38px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 4px;
+    }
+
+    .popup-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 3px;
+    }
+
+    .popup-url {
+      font-size: 9px;
+      color: #888;
+    }
+
+    .popup-save-btn {
+      width: 100%;
+      padding: 8px;
+      background: #dcc28f;
+      color: #1a1a1a;
+      border: none;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* Free badge */
+    .free-badge {
+      position: absolute;
+      bottom: 24px;
+      right: 80px;
+      background: #dcc28f;
+      color: #1a1a1a;
+      padding: 8px 24px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(220, 194, 143, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="dimension-label">1400 x 560 (Marquee)</div>
+  <div class="frame">
+    <div class="capture-area">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+
+      <div class="content">
+        <div class="text-side">
+          <div class="logo">
+            <span class="logo-icon">🪆</span>
+            <span class="logo-text">Layerdolls</span>
+          </div>
+          <h1 class="headline">
+            Your bookmarks, <span>organized</span>
+          </h1>
+          <p class="subheadline">
+            Save, organize, and search your bookmarks with nested collections and powerful full-text search.
+          </p>
+          <div class="features-row">
+            <div class="feature-pill">
+              <span class="feature-pill-icon">📁</span>
+              <span class="feature-pill-text">Nested Collections</span>
+            </div>
+            <div class="feature-pill">
+              <span class="feature-pill-icon">🔍</span>
+              <span class="feature-pill-text">Full-text Search</span>
+            </div>
+            <div class="feature-pill">
+              <span class="feature-pill-icon">⚡</span>
+              <span class="feature-pill-text">One-click Save</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-preview">
+          <div class="app-window">
+            <div class="app-header">
+              <div class="app-dot red"></div>
+              <div class="app-dot yellow"></div>
+              <div class="app-dot green"></div>
+            </div>
+            <div class="app-content">
+              <div class="app-sidebar-preview">
+                <div class="mini-sidebar">
+                  <div class="mini-nav-item">📚 All</div>
+                  <div class="mini-nav-item">❤️ Favorites</div>
+                  <div class="mini-nav-item active">💼 Work</div>
+                  <div class="mini-nav-item">📚 Learning</div>
+                </div>
+                <div class="mini-bookmark-grid">
+                  <div class="mini-bookmark">
+                    <div class="mini-bookmark-thumb g1"></div>
+                    <div class="mini-bookmark-info">
+                      <div class="mini-bookmark-title">React</div>
+                    </div>
+                  </div>
+                  <div class="mini-bookmark">
+                    <div class="mini-bookmark-thumb g2"></div>
+                    <div class="mini-bookmark-info">
+                      <div class="mini-bookmark-title">Design</div>
+                    </div>
+                  </div>
+                  <div class="mini-bookmark">
+                    <div class="mini-bookmark-thumb g3"></div>
+                    <div class="mini-bookmark-info">
+                      <div class="mini-bookmark-title">Notion</div>
+                    </div>
+                  </div>
+                  <div class="mini-bookmark">
+                    <div class="mini-bookmark-thumb g4"></div>
+                    <div class="mini-bookmark-info">
+                      <div class="mini-bookmark-title">Go</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="popup-window">
+            <div class="popup-tabs">
+              <div class="popup-tab active">+ Add</div>
+              <div class="popup-tab">Bookmarks</div>
+            </div>
+            <div class="popup-content">
+              <div class="popup-card">
+                <div class="popup-thumb"></div>
+                <div>
+                  <div class="popup-title">New bookmark...</div>
+                  <div class="popup-url">example.com</div>
+                </div>
+              </div>
+              <button class="popup-save-btn">Save bookmark</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="free-badge">Chrome Extension</div>
+    </div>
+  </div>
+</body>
+</html>
