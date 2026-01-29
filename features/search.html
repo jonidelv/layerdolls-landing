@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full-text & AI Search | Layerdolls</title>
+  <meta name="description" content="Search across titles, URLs, and the full content of your saved pages. AI-powered search understands what you're looking for.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪆</text></svg>">
+  <link rel="canonical" href="https://layerdolls.com/features/search.html">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --primary: #2383e2;
+      --text: #1a1a2e;
+      --text-muted: #6b7280;
+      --bg: #ffffff;
+      --border: #e5e7eb;
+      --gradient-2: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      padding: 20px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-icon { font-size: 28px; line-height: 1; }
+    .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.03em; }
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* Content */
+    main { padding: 140px 0 100px; }
+
+    .feature-hero {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .feature-hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+    .feature-hero .subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Mockup */
+    .mockup-section {
+      background: #f8f9fa;
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 60px;
+    }
+    .mockup-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .mockup-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--gradient-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .mockup-title { font-weight: 600; font-size: 15px; }
+    .mockup-subtitle { font-size: 13px; color: var(--text-muted); }
+    .mockup-search {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .mockup-list { display: flex; flex-direction: column; gap: 12px; }
+    .mockup-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+    .mockup-item-icon { font-size: 18px; }
+    .mockup-item-text { font-size: 14px; font-weight: 500; }
+    .mockup-item-meta { margin-left: auto; font-size: 12px; color: var(--text-muted); }
+    .mockup-item-meta.highlight { color: #16a34a; font-weight: 500; }
+
+    /* Details */
+    .details { margin-bottom: 60px; }
+    .details h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .detail-card {
+      background: #f8f9fa;
+      padding: 24px;
+      border-radius: 16px;
+    }
+    .detail-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .detail-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 60px;
+      background: #000000;
+      border-radius: 24px;
+    }
+    .cta-section h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 24px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      padding: 0 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      background: #dcc28f;
+      color: #000000;
+    }
+    .btn:hover { background: #c9af7d; }
+
+    @media (max-width: 768px) {
+      .feature-hero h1 { font-size: 32px; }
+      .details-grid { grid-template-columns: 1fr; }
+      .mockup-section { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🪆</span>
+        <span class="logo-text">layerdolls</span>
+      </a>
+      <a href="../index.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to home
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="feature-hero">
+        <h1>Full-text & AI Search</h1>
+        <p class="subtitle">Search across titles, URLs, and the full content of your saved pages. Our AI understands what you're looking for.</p>
+      </div>
+
+      <div class="mockup-section">
+        <div class="mockup-card">
+          <div class="mockup-header">
+            <div class="mockup-icon">🔍</div>
+            <div>
+              <div class="mockup-title">Smart Search</div>
+              <div class="mockup-subtitle">Find anything instantly</div>
+            </div>
+          </div>
+          <div class="mockup-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+            "react hooks tutorial"
+          </div>
+          <div class="mockup-list">
+            <div class="mockup-item">
+              <span class="mockup-item-icon">📄</span>
+              <span class="mockup-item-text">React Hooks Guide</span>
+              <span class="mockup-item-meta highlight">98% match</span>
+            </div>
+            <div class="mockup-item">
+              <span class="mockup-item-icon">🎥</span>
+              <span class="mockup-item-text">useEffect Tutorial</span>
+              <span class="mockup-item-meta highlight">94% match</span>
+            </div>
+            <div class="mockup-item">
+              <span class="mockup-item-icon">📚</span>
+              <span class="mockup-item-text">Custom Hooks Patterns</span>
+              <span class="mockup-item-meta highlight">89% match</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="details">
+        <h2>How it works</h2>
+        <div class="details-grid">
+          <div class="detail-card">
+            <h3>📝 Full-text Search</h3>
+            <p>Search across not just titles and URLs, but the actual content of every page you save. Find that article even if you only remember a phrase.</p>
+          </div>
+          <div class="detail-card">
+            <h3>🤖 AI-Powered</h3>
+            <p>Our AI understands context and meaning, not just keywords. Ask questions naturally and find relevant bookmarks even without exact matches.</p>
+          </div>
+          <div class="detail-card">
+            <h3>⚡ Instant Results</h3>
+            <p>Get search results in under a second. No waiting, no loading, just instant access to your entire bookmark library.</p>
+          </div>
+          <div class="detail-card">
+            <h3>🎯 Relevance Ranking</h3>
+            <p>Results are ranked by relevance so the most useful bookmarks appear first. See match percentages to know how well each result fits.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-section">
+        <h2>Find any bookmark instantly</h2>
+        <p>Stop scrolling through endless folders. Search smarter.</p>
+        <a href="javascript:void(0)" onclick="goToApp()" class="btn">Get started free</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+    const APP_URL = isLocal ? 'http://localhost:5173' : 'https://app.layerdolls.com';
+    function goToApp() { window.location.href = APP_URL; }
+  </script>
+</body>
+</html>

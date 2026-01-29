@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Metadata & Content Extraction | Layerdolls</title>
+  <meta name="description" content="Save a link and let Layerdolls automatically fetch titles, descriptions, images, and full page content for searchable bookmarks.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪆</text></svg>">
+  <link rel="canonical" href="https://layerdolls.com/features/metadata.html">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --primary: #2383e2;
+      --text: #1a1a2e;
+      --text-muted: #6b7280;
+      --bg: #ffffff;
+      --border: #e5e7eb;
+      --gradient-3: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      padding: 20px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-icon { font-size: 28px; line-height: 1; }
+    .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.03em; }
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* Content */
+    main { padding: 140px 0 100px; }
+
+    .feature-hero {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .feature-hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+    .feature-hero .subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Mockup */
+    .mockup-section {
+      background: #f8f9fa;
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 60px;
+    }
+    .mockup-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .mockup-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--gradient-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .mockup-title { font-weight: 600; font-size: 15px; }
+    .mockup-subtitle { font-size: 13px; color: var(--text-muted); }
+    .mockup-list { display: flex; flex-direction: column; gap: 12px; }
+    .mockup-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+    .mockup-item-icon { font-size: 18px; }
+    .mockup-item-text { font-size: 14px; font-weight: 500; }
+    .mockup-item-meta { margin-left: auto; font-size: 12px; color: #16a34a; font-weight: 500; }
+    .mockup-url {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-family: monospace;
+      word-break: break-all;
+    }
+
+    /* Details */
+    .details { margin-bottom: 60px; }
+    .details h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .detail-card {
+      background: #f8f9fa;
+      padding: 24px;
+      border-radius: 16px;
+    }
+    .detail-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .detail-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Extension callout */
+    .extension-callout {
+      background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 60px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .extension-callout-icon {
+      font-size: 40px;
+      flex-shrink: 0;
+    }
+    .extension-callout-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .extension-callout-content p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .extension-callout-content a {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .extension-callout-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 60px;
+      background: #000000;
+      border-radius: 24px;
+    }
+    .cta-section h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 24px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      padding: 0 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      background: #dcc28f;
+      color: #000000;
+    }
+    .btn:hover { background: #c9af7d; }
+
+    @media (max-width: 768px) {
+      .feature-hero h1 { font-size: 32px; }
+      .details-grid { grid-template-columns: 1fr; }
+      .mockup-section { padding: 24px; }
+      .extension-callout { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🪆</span>
+        <span class="logo-text">layerdolls</span>
+      </a>
+      <a href="../index.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to home
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="feature-hero">
+        <h1>Auto Metadata & Content</h1>
+        <p class="subtitle">Save a link and let Layerdolls do the rest. Titles, descriptions, images, and full page content are fetched automatically.</p>
+      </div>
+
+      <div class="mockup-section">
+        <div class="mockup-card">
+          <div class="mockup-header">
+            <div class="mockup-icon">✨</div>
+            <div>
+              <div class="mockup-title">Auto-captured</div>
+              <div class="mockup-subtitle">Just paste the URL</div>
+            </div>
+          </div>
+          <div class="mockup-url">https://example.com/article/react-best-practices</div>
+          <div class="mockup-list">
+            <div class="mockup-item">
+              <span class="mockup-item-icon">📝</span>
+              <span class="mockup-item-text">Title extracted</span>
+              <span class="mockup-item-meta">✓</span>
+            </div>
+            <div class="mockup-item">
+              <span class="mockup-item-icon">🖼️</span>
+              <span class="mockup-item-text">Image fetched</span>
+              <span class="mockup-item-meta">✓</span>
+            </div>
+            <div class="mockup-item">
+              <span class="mockup-item-icon">📄</span>
+              <span class="mockup-item-text">Full content saved</span>
+              <span class="mockup-item-meta">✓</span>
+            </div>
+            <div class="mockup-item">
+              <span class="mockup-item-icon">🎨</span>
+              <span class="mockup-item-text">Color extracted</span>
+              <span class="mockup-item-meta">✓</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="details">
+        <h2>How it works</h2>
+        <div class="details-grid">
+          <div class="detail-card">
+            <h3>📝 Title & Description</h3>
+            <p>Page titles and descriptions are automatically extracted from meta tags. No need to manually enter information.</p>
+          </div>
+          <div class="detail-card">
+            <h3>🖼️ Images & Thumbnails</h3>
+            <p>Preview images are fetched from Open Graph tags, making your bookmark library visually rich and easy to browse.</p>
+          </div>
+          <div class="detail-card">
+            <h3>📄 Full Page Content</h3>
+            <p>The entire readable content of the page is extracted and stored, making it searchable even if the original page changes.</p>
+          </div>
+          <div class="detail-card">
+            <h3>🎨 Color Extraction</h3>
+            <p>Dominant colors are extracted from pages without images, giving each bookmark a unique visual identity.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="extension-callout">
+        <span class="extension-callout-icon">🧩</span>
+        <div class="extension-callout-content">
+          <h3>Use the Chrome Extension for best results</h3>
+          <p>Some pages require login to access content. The Chrome extension captures content while you're logged in, ensuring full extraction for protected pages.</p>
+          <a href="https://chromewebstore.google.com/detail/layerdolls/fcjgjijlinakaoidnbbcmcccjjpknnea" target="_blank">Get the Chrome Extension →</a>
+        </div>
+      </div>
+
+      <div class="cta-section">
+        <h2>Save smarter, not harder</h2>
+        <p>Let Layerdolls handle the details while you focus on what matters.</p>
+        <a href="javascript:void(0)" onclick="goToApp()" class="btn">Get started free</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+    const APP_URL = isLocal ? 'http://localhost:5173' : 'https://app.layerdolls.com';
+    function goToApp() { window.location.href = APP_URL; }
+  </script>
+</body>
+</html>
