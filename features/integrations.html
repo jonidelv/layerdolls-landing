@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform Integrations | Layerdolls</title>
+  <meta name="description" content="Automatically sync your liked and saved content from Twitter, YouTube, Reddit, Pinterest, and GitHub to Layerdolls via IFTTT.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪆</text></svg>">
+  <link rel="canonical" href="https://layerdolls.com/features/integrations.html">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --primary: #2383e2;
+      --text: #1a1a2e;
+      --text-muted: #6b7280;
+      --bg: #ffffff;
+      --border: #e5e7eb;
+      --gradient-4: linear-gradient(135deg, #e8f4fd 0%, #dbeafe 100%);
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      padding: 20px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+    }
+    header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-icon { font-size: 28px; line-height: 1; }
+    .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.03em; }
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* Content */
+    main { padding: 140px 0 100px; }
+
+    .feature-hero {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .feature-hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+    .feature-hero .subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Mockup */
+    .mockup-section {
+      background: #f8f9fa;
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 60px;
+    }
+    .mockup-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .mockup-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--gradient-4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .mockup-title { font-weight: 600; font-size: 15px; }
+    .mockup-subtitle { font-size: 13px; color: var(--text-muted); }
+    .mockup-list { display: flex; flex-direction: column; gap: 12px; }
+    .mockup-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+    .mockup-item-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .mockup-item-icon svg { width: 20px; height: 20px; }
+    .mockup-item-text { font-size: 14px; font-weight: 500; }
+    .mockup-item-meta { margin-left: auto; font-size: 12px; color: #22c55e; font-weight: 500; }
+    .mockup-item-meta.pending { color: var(--text-muted); }
+
+    /* Details */
+    .details { margin-bottom: 60px; }
+    .details h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .detail-card {
+      background: #f8f9fa;
+      padding: 24px;
+      border-radius: 16px;
+    }
+    .detail-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .detail-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Platform grid */
+    .platforms {
+      margin-bottom: 60px;
+    }
+    .platforms h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+    .platform-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+    }
+    .platform-card-icon {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .platform-card-icon svg { width: 32px; height: 32px; }
+    .platform-card-name {
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .platform-card-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* IFTTT callout */
+    .ifttt-callout {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 60px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: white;
+    }
+    .ifttt-callout-icon {
+      font-size: 40px;
+      flex-shrink: 0;
+    }
+    .ifttt-callout-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .ifttt-callout-content p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 12px;
+    }
+    .ifttt-callout-content a {
+      font-size: 14px;
+      font-weight: 600;
+      color: #dcc28f;
+      text-decoration: none;
+    }
+    .ifttt-callout-content a:hover {
+      text-decoration: underline;
+    }
+
+    /* Note */
+    .note {
+      background: #fef3c7;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 60px;
+      font-size: 14px;
+      color: #92400e;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .note-icon { font-size: 18px; flex-shrink: 0; }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 60px;
+      background: #000000;
+      border-radius: 24px;
+    }
+    .cta-section h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 24px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      padding: 0 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      background: #dcc28f;
+      color: #000000;
+    }
+    .btn:hover { background: #c9af7d; }
+
+    @media (max-width: 768px) {
+      .feature-hero h1 { font-size: 32px; }
+      .details-grid { grid-template-columns: 1fr; }
+      .platforms-grid { grid-template-columns: repeat(3, 1fr); }
+      .mockup-section { padding: 24px; }
+      .ifttt-callout { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .platforms-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="../index.html" class="logo">
+        <span class="logo-icon">🪆</span>
+        <span class="logo-text">layerdolls</span>
+      </a>
+      <a href="../index.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to home
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="feature-hero">
+        <h1>Platform Integrations</h1>
+        <p class="subtitle">Automatically sync your liked and saved content from your favorite platforms. Your bookmarks appear like magic.</p>
+      </div>
+
+      <div class="mockup-section">
+        <div class="mockup-card">
+          <div class="mockup-header">
+            <div class="mockup-icon">🔗</div>
+            <div>
+              <div class="mockup-title">Integrations</div>
+              <div class="mockup-subtitle">Auto-sync your likes</div>
+            </div>
+          </div>
+          <div class="mockup-list">
+            <div class="mockup-item">
+              <span class="mockup-item-icon">
+                <svg viewBox="0 0 24 24" fill="#000000"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </span>
+              <span class="mockup-item-text">Twitter Bookmarks</span>
+              <span class="mockup-item-meta">Connected</span>
+            </div>
+            <div class="mockup-item">
+              <span class="mockup-item-icon">
+                <svg viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </span>
+              <span class="mockup-item-text">YouTube Likes</span>
+              <span class="mockup-item-meta">Connected</span>
+            </div>
+            <div class="mockup-item">
+              <span class="mockup-item-icon">
+                <svg viewBox="0 0 24 24" fill="#FF4500"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+              </span>
+              <span class="mockup-item-text">Reddit Saved</span>
+              <span class="mockup-item-meta">Connected</span>
+            </div>
+            <div class="mockup-item">
+              <span class="mockup-item-icon">
+                <svg viewBox="0 0 24 24" fill="#E60023"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+              </span>
+              <span class="mockup-item-text">Pinterest Saves</span>
+              <span class="mockup-item-meta pending">Enable</span>
+            </div>
+            <div class="mockup-item">
+              <span class="mockup-item-icon">
+                <svg viewBox="0 0 24 24" fill="#181717"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              </span>
+              <span class="mockup-item-text">GitHub Stars</span>
+              <span class="mockup-item-meta pending">Enable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="platforms">
+        <h2>Supported platforms</h2>
+        <div class="platforms-grid">
+          <div class="platform-card">
+            <div class="platform-card-icon">
+              <svg viewBox="0 0 24 24" fill="#000000"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </div>
+            <div class="platform-card-name">Twitter / X</div>
+            <div class="platform-card-desc">Bookmarks</div>
+          </div>
+          <div class="platform-card">
+            <div class="platform-card-icon">
+              <svg viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </div>
+            <div class="platform-card-name">YouTube</div>
+            <div class="platform-card-desc">Liked videos</div>
+          </div>
+          <div class="platform-card">
+            <div class="platform-card-icon">
+              <svg viewBox="0 0 24 24" fill="#FF4500"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+            </div>
+            <div class="platform-card-name">Reddit</div>
+            <div class="platform-card-desc">Saved posts</div>
+          </div>
+          <div class="platform-card">
+            <div class="platform-card-icon">
+              <svg viewBox="0 0 24 24" fill="#E60023"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+            </div>
+            <div class="platform-card-name">Pinterest</div>
+            <div class="platform-card-desc">Saved pins</div>
+          </div>
+          <div class="platform-card">
+            <div class="platform-card-icon">
+              <svg viewBox="0 0 24 24" fill="#181717"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </div>
+            <div class="platform-card-name">GitHub</div>
+            <div class="platform-card-desc">Starred repos</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="details">
+        <h2>How it works</h2>
+        <div class="details-grid">
+          <div class="detail-card">
+            <h3>🔗 One-time setup</h3>
+            <p>Connect your accounts through IFTTT. We provide the webhook URL and configuration, just follow the simple steps.</p>
+          </div>
+          <div class="detail-card">
+            <h3>📁 Automatic organization</h3>
+            <p>Each platform gets its own collection. Twitter bookmarks go to "Twitter Bookmarks", YouTube likes to "YouTube Likes", etc.</p>
+          </div>
+          <div class="detail-card">
+            <h3>✨ Full metadata</h3>
+            <p>Titles, images, and content are automatically fetched for each synced item, just like regular bookmarks.</p>
+          </div>
+          <div class="detail-card">
+            <h3>🔍 Fully searchable</h3>
+            <p>All your synced content is indexed and searchable. Find that tweet or video you saved months ago in seconds.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ifttt-callout">
+        <span class="ifttt-callout-icon">⚡</span>
+        <div class="ifttt-callout-content">
+          <h3>Powered by IFTTT</h3>
+          <p>Integrations work through IFTTT (If This Then That), a free automation service. Create an applet that sends your likes and saves to Layerdolls automatically.</p>
+          <a href="https://ifttt.com" target="_blank">Learn more about IFTTT →</a>
+        </div>
+      </div>
+
+      <div class="note">
+        <span class="note-icon">⏱️</span>
+        <div>
+          <strong>Note:</strong> Syncs may take up to 15 minutes due to IFTTT's polling interval. Your content will appear in Layerdolls shortly after you save or like it on the source platform.
+        </div>
+      </div>
+
+      <div class="cta-section">
+        <h2>Connect your digital life</h2>
+        <p>Start syncing your likes and saves from all your favorite platforms.</p>
+        <a href="javascript:void(0)" onclick="goToApp()" class="btn">Get started free</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+    const APP_URL = isLocal ? 'http://localhost:5173' : 'https://app.layerdolls.com';
+    function goToApp() { window.location.href = APP_URL; }
+  </script>
+</body>
+</html>
